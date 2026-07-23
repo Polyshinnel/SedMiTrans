@@ -1,0 +1,6 @@
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--mantine-color-gray-0); color: var(--mantine-color-dark-9); }
+.skip-link { position: fixed; top: 0.75rem; left: 0.75rem; z-index: 1000; transform: translateY(-200%); }
+.skip-link:focus { transform: translateY(0); }
