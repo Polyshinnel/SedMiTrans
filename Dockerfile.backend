@@ -1,5 +1,3 @@
-# syntax=docker/dockerfile:1.7
-
 FROM php:8.5-fpm-alpine AS php-base
 
 RUN apk add --no-cache \
