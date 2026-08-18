@@ -9,7 +9,9 @@ RUN apk add --no-cache \
     && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
     && docker-php-ext-install -j"$(nproc)" \
         pdo_mysql intl bcmath pcntl zip gd exif \
-    && pecl install redis-6.2.0 \
+    && wget -q -O /tmp/redis-6.2.0.tgz https://pecl.php.net/get/redis-6.2.0.tgz \
+    && pecl install /tmp/redis-6.2.0.tgz \
+    && rm /tmp/redis-6.2.0.tgz \
     && docker-php-ext-enable redis \
     && apk del .build-deps
 
