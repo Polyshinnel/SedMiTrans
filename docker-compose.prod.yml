@@ -1,0 +1,111 @@
+# Production/Dokploy topology. Unlike docker-compose.yml this file deliberately
+# has no source-code bind mounts: the Laravel image owns storage and cache.
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    restart: unless-stopped
+    ports:
+      - "80"
+    volumes:
+      - storage_public:/var/www/storage:ro
+    depends_on:
+      app:
+        condition: service_started
+      frontend:
+        condition: service_started
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+      target: app
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - storage_public:/var/www/html/storage/app/public
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  horizon:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+      target: app
+    command: ["php", "artisan", "horizon"]
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - storage_public:/var/www/html/storage/app/public
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  scheduler:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+      target: app
+    command: ["php", "artisan", "schedule:work"]
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - storage_public:/var/www/html/storage/app/public
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+      target: production
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      API_INTERNAL_URL: ${API_INTERNAL_URL:-http://nginx/api/v1}
+      MEDIA_INTERNAL_URL: ${MEDIA_INTERNAL_URL:-http://nginx}
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-/api/v1}
+      NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL}
+
+  mysql:
+    image: mysql:8.4
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u$$MYSQL_USER -p$$MYSQL_PASSWORD --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+
+  redis:
+    image: redis:7-alpine
+    command: redis-server --appendonly yes
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  mysql_data:
+  redis_data:
+  storage_public:

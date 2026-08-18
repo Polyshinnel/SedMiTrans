@@ -25,6 +25,16 @@ docker compose ps
 
 До шага 09 frontend — временная заглушка. Она отвечает на все не-Laravel маршруты.
 
+## Dokploy / production
+
+Для Dokploy используйте [`docker-compose.prod.yml`](docker-compose.prod.yml), а не
+локальный `docker-compose.yml`: последний намеренно монтирует исходники для
+разработки. Перед деплоем добавьте production-переменные в Dokploy так, чтобы они
+были доступны сервисам как `.env` (в частности `APP_KEY`, `APP_URL`, параметры БД,
+Redis и `NEXT_PUBLIC_SITE_URL`). Production Compose не монтирует репозиторий в
+Laravel-контейнеры, поэтому `storage/logs` и `bootstrap/cache` сохраняют владельца
+`www-data` из образа.
+
 ## Команды Make
 
 `make init` создаёт `.env`, но не собирает образы. Все команды принимают дополнительные
