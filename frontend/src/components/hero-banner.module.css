@@ -1,0 +1,42 @@
+.swiper {
+  --swiper-pagination-color: var(--color-brand-orange);
+  --swiper-pagination-bullet-inactive-color: #f8f8f7;
+  --swiper-pagination-bullet-inactive-opacity: 0.7;
+  --swiper-pagination-bottom: 40px;
+}
+
+.slide {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 680px;
+  overflow: hidden;
+  padding: 130px;
+  background-image: url('/images/Hero-banner.webp');
+  background-position: center;
+  background-size: cover;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(31, 28, 25, 0.82) 0%, rgba(31, 28, 25, 0.61) 42%, rgba(31, 28, 25, 0.08) 74%);
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+}
+
+.title {
+  color: #f8f8f7;
+  font-size: clamp(2.5rem, 4vw, 4.5rem);
+  line-height: 1.1;
+}
+
+.description {
+  max-width: 680px;
+  font-size: 1.125rem;
+  line-height: 1.55;
+}

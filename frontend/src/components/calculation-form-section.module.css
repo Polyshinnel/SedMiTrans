@@ -1,0 +1,22 @@
+.section {
+  margin: 0 130px 96px;
+  padding: 64px;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.heading {
+  margin-bottom: 36px;
+  color: var(--color-brand-gray);
+  font-size: clamp(2rem, 3vw, 3rem);
+  text-align: center;
+}
+
+.form {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.submit {
+  align-self: end;
+}

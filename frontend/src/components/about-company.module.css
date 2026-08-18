@@ -1,0 +1,46 @@
+.section {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  margin: 0 130px 96px;
+}
+
+.textPanel {
+  position: relative;
+  z-index: 1;
+  margin-right: -96px;
+  padding: 80px 148px 80px 64px;
+  border-radius: 10px 0 0 10px;
+  background: linear-gradient(90deg, #fff 0%, rgb(255 255 255 / 94%) 66%, rgb(255 255 255 / 0%) 100%);
+}
+
+.heading {
+  margin-bottom: 24px;
+  color: var(--color-brand-gray);
+  font-size: clamp(2rem, 3vw, 3rem);
+}
+
+.description {
+  max-width: 560px;
+  color: #827a73;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+}
+
+.more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 32px;
+  color: var(--color-brand-orange);
+  font-size: 0.9375rem;
+  font-weight: 700;
+}
+
+.image {
+  min-height: 440px;
+  border-radius: 0 10px 10px 0;
+  background-image: url('/images/build.webp');
+  background-position: center;
+  background-size: cover;
+}

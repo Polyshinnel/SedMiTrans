@@ -1,0 +1,33 @@
+.section {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0 130px 96px;
+  padding: 48px;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.stat {
+  min-height: 150px;
+  justify-content: center;
+  text-align: left;
+}
+
+.stat:not(:last-child) {
+  border-right: 1px solid #eeecea;
+}
+
+.icon {
+  color: var(--color-brand-orange);
+}
+
+.value {
+  color: var(--color-brand-gray);
+  font-size: 2.75rem;
+  line-height: 1;
+}
+
+.label {
+  color: #827a73;
+  font-size: 1rem;
+}
