@@ -1,5 +1,6 @@
 FROM php:8.5-fpm-alpine AS php-base
 
+# The host may publish an unreachable IPv6 address; force IPv4 for this download.
 RUN apk add --no-cache \
         libpng freetype libjpeg-turbo libwebp icu-libs libzip oniguruma \
     && apk add --no-cache --virtual .build-deps \
@@ -9,7 +10,7 @@ RUN apk add --no-cache \
     && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
     && docker-php-ext-install -j"$(nproc)" \
         pdo_mysql intl bcmath pcntl zip gd exif \
-    && wget -q -O /tmp/redis-6.3.0.tgz https://pecl.php.net/get/redis-6.3.0.tgz \
+    && wget -4 -q -O /tmp/redis-6.3.0.tgz https://pecl.php.net/get/redis-6.3.0.tgz \
     && pecl install /tmp/redis-6.3.0.tgz \
     && rm /tmp/redis-6.3.0.tgz \
     && docker-php-ext-enable redis \
