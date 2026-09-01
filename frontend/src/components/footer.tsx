@@ -18,7 +18,7 @@ const additionalServiceLinks = [
   'Консультирование по вопросам ВЭД',
 ];
 
-const companyLinks = ['О компании', 'Преимущества', 'Отрасли', 'Контакты'];
+const companyLinks = ['О компании', 'Преимущества', 'Отрасли', { label: 'Контакты', href: '/contacts' }];
 
 function FooterLinks({ title, links }: { title: string; links: (string | { label: string; href: string })[] }) {
   return (

@@ -4,13 +4,15 @@ FROM php:8.5-fpm-alpine AS php-base
 RUN apk add --no-cache \
         libpng freetype libjpeg-turbo libwebp icu-libs libzip oniguruma \
     && apk add --no-cache --virtual .build-deps \
-        $PHPIZE_DEPS linux-headers \
+        $PHPIZE_DEPS linux-headers curl \
         libpng-dev freetype-dev libjpeg-turbo-dev libwebp-dev \
         icu-dev libzip-dev oniguruma-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
     && docker-php-ext-install -j"$(nproc)" \
         pdo_mysql intl bcmath pcntl zip gd exif \
-    && wget -4 -q -O /tmp/redis-6.3.0.tgz https://pecl.php.net/get/redis-6.3.0.tgz \
+    && curl --fail --location --ipv4 --retry 5 --retry-all-errors \
+        --connect-timeout 15 --output /tmp/redis-6.3.0.tgz \
+        https://pecl.php.net/get/redis-6.3.0.tgz \
     && pecl install /tmp/redis-6.3.0.tgz \
     && rm /tmp/redis-6.3.0.tgz \
     && docker-php-ext-enable redis \

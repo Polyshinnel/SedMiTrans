@@ -2,11 +2,11 @@ import { Anchor, Box, Button, Group, Stack } from '@mantine/core';
 import Image from 'next/image';
 
 const navigation = [
-  { label: 'Услуги', href: '#services' },
-  { label: 'Специальные перевозки', href: '#special-transportation' },
-  { label: 'О компании', href: '#about' },
-  { label: 'Отрасли', href: '#industries' },
-  { label: 'Контакты', href: '#contacts' },
+  { label: 'Услуги', href: '/#services' },
+  { label: 'Специальные перевозки', href: '/#special-transportation' },
+  { label: 'О компании', href: '/#about' },
+  { label: 'Отрасли', href: '/#industries' },
+  { label: 'Контакты', href: '/contacts' },
 ];
 
 export function Header() {
