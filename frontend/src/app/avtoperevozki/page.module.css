@@ -1,0 +1,30 @@
+.hero { position: relative; display: flex; min-height: 620px; align-items: center; overflow: hidden; padding: 100px 130px; background: url('/images/auto-hero.webp') center / cover no-repeat; }
+.heroOverlay { position: absolute; inset: 0; background: linear-gradient(90deg, rgb(31 28 25 / 88%) 0%, rgb(31 28 25 / 68%) 38%, rgb(31 28 25 / 8%) 73%); }
+.heroContent { position: relative; z-index: 1; max-width: 720px; }
+.eyebrow { margin-bottom: 16px; color: var(--color-brand-orange); font-size: .8125rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.heroTitle { color: #fff; font-size: clamp(2.7rem, 5vw, 4.75rem); line-height: 1.08; }
+.heroTitle span { color: var(--color-brand-orange); }
+.heroDescription { max-width: 640px; margin-top: 24px; color: #fff; font-size: 1.125rem; line-height: 1.6; }
+.heroActions { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 36px; }
+.intro, .terminalSection { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 72px; align-items: center; padding: 96px 130px; }
+.sectionTitle { color: var(--color-brand-gray); font-size: clamp(2rem, 3.2vw, 3rem); line-height: 1.18; }
+.introCopy { display: grid; gap: 20px; color: #827a73; font-size: 1rem; line-height: 1.7; }
+.transportSection, .workflow { padding: 96px 130px; background: #fff; }
+.sectionHeading { max-width: 750px; margin-bottom: 40px; }
+.transportGrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+.transportCard { min-height: 254px; padding: 28px; border: 1px solid #eeecea; border-radius: 10px; color: var(--color-brand-orange); background: var(--color-page); }
+.transportCard h3, .advantageCard h3 { margin: 28px 0 12px; color: var(--color-brand-gray); font-size: 1.125rem; line-height: 1.35; }
+.transportCard p, .advantageCard p, .terminalContent p { color: #827a73; font-size: .9375rem; line-height: 1.6; }
+.terminalSection { gap: 82px; }
+.terminalImageWrap { position: relative; min-height: 460px; overflow: hidden; border-radius: 10px; }
+.terminalImage { object-fit: cover; }
+.fact { position: absolute; right: 20px; bottom: 20px; display: grid; max-width: 245px; gap: 6px; padding: 20px; border-radius: 8px; background: #fff; color: var(--color-brand-gray); box-shadow: 0 10px 30px rgb(31 28 25 / 18%); }
+.fact strong { font-size: .9375rem; }.fact span { color: #827a73; font-size: .8125rem; line-height: 1.45; }
+.terminalContent { display: grid; gap: 20px; }.terminalContent .eyebrow { margin-bottom: 0; }.terminalContent p { font-size: 1rem; }
+.textLink { display: inline-flex; align-items: center; gap: 8px; width: fit-content; margin-top: 8px; color: var(--color-brand-orange); font-size: .9375rem; font-weight: 800; text-decoration: none; }
+.advantages { padding: 96px 130px; text-align: center; }.advantages > .eyebrow { margin-bottom: 16px; }.advantages > .sectionTitle { max-width: 740px; margin: 0 auto 44px; }
+.advantageGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }.advantageCard { padding: 8px 25px; color: var(--color-brand-orange); }.advantageCard h3 { margin-top: 20px; }.advantageCard p { max-width: 330px; margin: 0 auto; }
+.steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; margin: 0; padding: 0; list-style: none; }.steps li { position: relative; min-height: 145px; padding: 24px; border-radius: 10px; background: var(--color-page); }.steps li:not(:last-child)::after { position: absolute; top: 34px; right: -14px; z-index: 1; color: var(--color-brand-orange); content: '→'; font-size: 1.5rem; }.steps span { display: block; margin-bottom: 20px; color: var(--color-brand-orange); font-size: .8125rem; font-weight: 800; letter-spacing: .08em; }.steps p { color: var(--color-brand-gray); font-size: .9375rem; font-weight: 700; line-height: 1.5; }
+.cta { display: flex; align-items: center; justify-content: space-between; gap: 48px; margin: 0 130px 96px; padding: 54px 64px; border-radius: 10px; background: var(--color-brand-gray); }.cta > div { max-width: 720px; }.ctaLabel { margin-bottom: 12px; color: var(--color-brand-orange); font-size: .8125rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }.cta h2 { color: #fff; font-size: clamp(1.8rem, 3vw, 2.7rem); line-height: 1.18; }.cta p:last-child { margin-top: 14px; color: #d9d6d2; line-height: 1.6; }
+@media (max-width: 1100px) { .hero, .intro, .terminalSection, .transportSection, .workflow, .advantages { padding-right: 48px; padding-left: 48px; }.transportGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }.cta { margin-right: 48px; margin-left: 48px; }.intro, .terminalSection { gap: 40px; } }
+@media (max-width: 720px) { .hero { min-height: 580px; padding: 72px 24px; background-position: 64% center; }.heroOverlay { background: linear-gradient(90deg, rgb(31 28 25 / 90%), rgb(31 28 25 / 50%)); }.heroDescription { font-size: 1rem; }.heroActions { margin-top: 28px; }.heroActions :global(.mantine-Button-root) { width: 100%; }.intro, .terminalSection { grid-template-columns: 1fr; gap: 28px; padding: 64px 24px; }.transportSection, .workflow, .advantages { padding: 64px 24px; }.transportGrid, .advantageGrid, .steps { grid-template-columns: 1fr; }.terminalImageWrap { order: 2; min-height: 330px; }.steps { gap: 12px; }.steps li { min-height: auto; }.steps li:not(:last-child)::after { display: none; }.cta { display: grid; gap: 28px; margin: 0 24px 64px; padding: 36px 28px; }.cta :global(.mantine-Button-root) { width: 100%; } }

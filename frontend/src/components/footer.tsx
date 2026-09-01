@@ -3,10 +3,10 @@ import { IconBrandTelegram, IconBrandWhatsapp, IconMail, IconMapPin, IconMessage
 import Image from 'next/image';
 
 const serviceLinks = [
-  'Автоперевозки',
-  'Железнодорожные перевозки',
-  'Авиаперевозки',
-  'Мультимодальные перевозки',
+  { label: 'Автоперевозки', href: '/avtoperevozki' },
+  { label: 'Железнодорожные перевозки', href: '/zheleznodorozhnye-perevozki' },
+  { label: 'Авиаперевозки', href: '/aviaperevozki' },
+  { label: 'Мультимодальные перевозки', href: '/multimodalnye-perevozki' },
   'Сборные грузы',
   'Проектные грузы',
 ];
@@ -20,14 +20,15 @@ const additionalServiceLinks = [
 
 const companyLinks = ['О компании', 'Преимущества', 'Отрасли', 'Контакты'];
 
-function FooterLinks({ title, links }: { title: string; links: string[] }) {
+function FooterLinks({ title, links }: { title: string; links: (string | { label: string; href: string })[] }) {
   return (
     <Stack gap="sm">
       <Text fw={600} fz="lg" c="white">{title}</Text>
       <Stack gap="xs">
-        {links.map((link) => (
-          <Anchor key={link} href="#" size="sm" c="white" underline="never">{link}</Anchor>
-        ))}
+        {links.map((item) => {
+          const link = typeof item === 'string' ? { label: item, href: '#' } : item;
+          return <Anchor key={link.label} href={link.href} size="sm" c="white" underline="never">{link.label}</Anchor>;
+        })}
       </Stack>
     </Stack>
   );

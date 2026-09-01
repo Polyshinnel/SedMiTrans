@@ -48,7 +48,7 @@ export function TransportDirections() {
             <Stack className={styles.content} gap="sm">
               <Text className={styles.title} fw={600}>{title}</Text>
               <Text className={styles.description}>{description}</Text>
-              <Anchor href="#" className={styles.more} underline="never">
+              <Anchor href={title === 'Автоперевозки' ? '/avtoperevozki' : title === 'Железнодорожные перевозки' ? '/zheleznodorozhnye-perevozki' : title === 'Авиаперевозки' ? '/aviaperevozki' : title === 'Мультимодальные перевозки' ? '/multimodalnye-perevozki' : '#'} className={styles.more} underline="never">
                 Подробнее <IconArrowRight size={18} stroke={1.8} />
               </Anchor>
             </Stack>
