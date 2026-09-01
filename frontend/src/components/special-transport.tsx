@@ -5,12 +5,12 @@ import styles from './special-transport.module.css';
 const specialTransports = [
   {
     image: '/images/negabarit.webp',
-    title: 'Негабаритные грузы',
+    title: 'Сборные грузы',
     description: 'Перевозка промышленного оборудования, строительной техники, крупных конструкций и других нестандартных грузов.',
   },
   {
     image: '/images/danger.webp',
-    title: 'Опасные грузы',
+    title: 'Проектные грузы',
     description: 'Организация перевозки опасных грузов с соблюдением международных требований и всех необходимых мер безопасности.',
   },
 ];

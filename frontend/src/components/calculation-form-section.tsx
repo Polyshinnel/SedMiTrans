@@ -10,8 +10,8 @@ export function CalculationFormSection() {
           <TextInput label="ФИО" placeholder="Введите ФИО" />
           <TextInput label="Телефон" placeholder="+7 (___) ___-__-__" inputMode="tel" />
           <TextInput label="Что перевозим" placeholder="Опишите груз" />
-          <TextInput label="Куда перевозим" placeholder="Город или страна" />
-          <TextInput label="Вес" placeholder="Например, 500 кг" />
+          <TextInput label="Маршрут" placeholder="Страна-город" />
+          <TextInput label="Параметры груза" placeholder="Д х Ш х В, вес брутто" />
           <Button type="button" color="brandOrange" size="md" className={styles.submit}>
             Получить расчет
           </Button>

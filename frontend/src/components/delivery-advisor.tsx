@@ -6,7 +6,7 @@ const recommendations = [
   { priority: 'Минимальная стоимость', icon: IconTrain, recommendation: 'Железнодорожную перевозку' },
   { priority: 'Максимальная скорость', icon: IconPlane, recommendation: 'Авиаперевозку' },
   { priority: 'Универсальность', icon: IconTruck, recommendation: 'Автоперевозку' },
-  { priority: 'Крупные партии', icon: IconShip, recommendation: 'Морскую перевозку' },
+  { priority: 'Специальная задача', icon: IconShip, recommendation: 'Проектная перевозка' },
 ];
 
 export function DeliveryAdvisor() {

@@ -3,11 +3,11 @@ import { Stack, Text, Title } from '@mantine/core';
 import styles from './workflow-section.module.css';
 
 const stages = [
-  { icon: IconSend, title: 'Заявка', description: 'Оставьте заявку.' },
-  { icon: IconCalculator, title: 'Расчёт стоимости', description: 'Мы рассчитываем стоимость и сроки доставки.' },
+  { icon: IconSend, title: 'Запрос', description: 'Оставьте заявку удобным для вас способом' },
+  { icon: IconCalculator, title: 'Консультирование, подбор маршрута', description: 'Оптимизируем маршруты и транспорт под специфику вашей ВЭД' },
   { icon: IconRoute, title: 'Подбор маршрута', description: 'Выбираем оптимальный маршрут и транспорт.' },
-  { icon: IconFileText, title: 'Оформление документов', description: 'Готовим все необходимые документы.' },
-  { icon: IconTruck, title: 'Перевозка', description: 'Осуществляем перевозку вашего груза.' },
+  { icon: IconFileText, title: 'Оформление обязательств', description: 'Согласование деталей и подписание заявки' },
+  { icon: IconTruck, title: 'Доставка вашего груза', description: 'Доставка груза по согласованному маршруту' },
   { icon: IconMapPin, title: 'Доставка получателю', description: 'Доставляем груз точно в срок.' },
 ];
 

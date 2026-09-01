@@ -6,16 +6,16 @@ const serviceLinks = [
   'Автоперевозки',
   'Железнодорожные перевозки',
   'Авиаперевозки',
-  'Морские перевозки',
-  'Негабаритные грузы',
-  'Опасные грузы',
+  'Мультимодальные перевозки',
+  'Сборные грузы',
+  'Проектные грузы',
 ];
 
 const additionalServiceLinks = [
   'Таможенное оформление',
   'Страхование грузов',
   'Складская логистика',
-  'Финансовые услуги',
+  'Консультирование по вопросам ВЭД',
 ];
 
 const companyLinks = ['О компании', 'Преимущества', 'Отрасли', 'Контакты'];
@@ -72,7 +72,7 @@ export function Footer() {
             </Group>
             <Group gap="sm" align="flex-start" wrap="nowrap">
               <IconMapPin size={20} color="var(--color-brand-orange)" />
-              <Text size="sm" c="white">г. Москва, ул. Логистическая, д.1 офис 101</Text>
+              <Text size="sm" c="white">г. Смоленск, ул. Нормандия-Неман д.35</Text>
             </Group>
             <Button component="a" href="/quote" variant="transparent" color="brandOrange" p={0} w="fit-content" fw={700}>
               Перезвоните мне
