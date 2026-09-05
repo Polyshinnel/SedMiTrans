@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
-import { Button, Text, Title } from '@mantine/core';
+import { Anchor, Box, Button, Text, Title } from '@mantine/core';
 import {
-  IconArrowRight,
   IconBox,
   IconCalendarCheck,
   IconClock,
+  IconClipboardCheck,
   IconPackages,
   IconPlane,
   IconRoute,
@@ -12,6 +12,7 @@ import {
   IconWorld,
 } from '@tabler/icons-react';
 import Image from 'next/image';
+import { CalculationRequestModal } from '@/components/calculation-request-modal';
 import styles from '../avtoperevozki/page.module.css';
 
 export const metadata: Metadata = {
@@ -32,7 +33,12 @@ const advantages = [
   { icon: IconShieldCheck, title: 'Документы и безопасность', text: 'Помогаем с авианакладными, таможенными формальностями и страхованием отправления.' },
 ];
 
-const steps = ['Получаем данные о грузе и сроках', 'Подбираем рейс и согласовываем ставку', 'Организуем доставку в аэропорт и оформление', 'Контролируем прилёт и выдачу получателю'];
+const steps = [
+  { icon: IconClipboardCheck, text: 'Получаем данные о грузе и сроках' },
+  { icon: IconPlane, text: 'Подбираем рейс и согласовываем ставку' },
+  { icon: IconPackages, text: 'Организуем доставку в аэропорт и оформление' },
+  { icon: IconShieldCheck, text: 'Контролируем прилёт и выдачу получателю' },
+];
 
 export default function AirTransportationPage() {
   return (
@@ -40,17 +46,22 @@ export default function AirTransportationPage() {
       <section className={styles.hero} style={{ backgroundImage: "url('/images/air-hero.webp')" }} aria-labelledby="air-hero-title">
         <div className={styles.heroOverlay} />
         <div className={styles.heroContent}>
-          <Text className={styles.eyebrow}>Международная логистика</Text>
+          <Box className={styles.heroBreadcrumbs}>
+            <Anchor href="/" underline="never">Главная</Anchor>
+            <span aria-hidden="true">/</span>
+            <Anchor href="/uslugi" underline="never">Услуги</Anchor>
+            <span aria-hidden="true">/</span>
+            <Text component="span">Авиаперевозки</Text>
+          </Box>
           <Title id="air-hero-title" order={1} className={styles.heroTitle}>
-            Авиаперевозки, когда <span>счёт идёт на часы</span>
+            Авиаперевозки, когда <span>скорость имеет значение</span>
           </Title>
           <Text className={styles.heroDescription}>
             Организуем быструю доставку грузов из любой точки мира. Подбираем рейс, берём на себя
             аэропортовую обработку, документы и доставку до получателя.
           </Text>
           <div className={styles.heroActions}>
-            <Button component="a" href="/quote" color="brandOrange" size="lg">Рассчитать стоимость</Button>
-            <Button component="a" href="#how-we-work" variant="outline" color="white" size="lg">Как мы работаем</Button>
+            <CalculationRequestModal label="Рассчитать стоимость" size="lg" />
           </div>
         </div>
       </section>
@@ -91,7 +102,7 @@ export default function AirTransportationPage() {
           <Text className={styles.eyebrow}>Аэропортовая логистика</Text>
           <Title id="terminal-title" order={2} className={styles.sectionTitle}>Быстрый рейс — только часть маршрута</Title>
           <Text>Чтобы груз действительно прибыл вовремя, важно точно организовать приём, взвешивание, оформление и обработку в аэропорту. Координируем терминальные операции и стыкуем их с дальнейшей автодоставкой.</Text>
-          <a href="/quote" className={styles.textLink}>Обсудить перевозку <IconArrowRight size={18} stroke={1.8} /></a>
+          <CalculationRequestModal label="Обсудить перевозку" />
         </div>
       </section>
 
@@ -112,10 +123,10 @@ export default function AirTransportationPage() {
       <section id="how-we-work" className={styles.workflow} aria-labelledby="workflow-title">
         <div className={styles.sectionHeading}>
           <Text className={styles.eyebrow}>Простой процесс</Text>
-          <Title id="workflow-title" order={2} className={styles.sectionTitle}>Как организуем авиаперевозку</Title>
+          <Title id="workflow-title" order={2} className={styles.sectionTitle}>Как мы организуем авиаперевозку</Title>
         </div>
         <ol className={styles.steps}>
-          {steps.map((step, index) => <li key={step}><span>0{index + 1}</span><Text>{step}</Text></li>)}
+          {steps.map(({ icon: Icon, text }, index) => <li key={text}><Icon className={styles.stepIcon} size={28} stroke={1.6} aria-hidden="true" /><span>0{index + 1}</span><Text>{text}</Text></li>)}
         </ol>
       </section>
 
@@ -125,7 +136,7 @@ export default function AirTransportationPage() {
           <Title id="air-cta-title" order={2}>Расскажите о грузе — найдём ближайший подходящий рейс</Title>
           <Text>Укажите маршрут, вес, габариты и дедлайн. Вернёмся с расчётом и вариантами отправки.</Text>
         </div>
-        <Button component="a" href="/quote" color="brandOrange" size="lg">Получить расчёт</Button>
+        <CalculationRequestModal label="Получить расчёт" size="lg" />
       </section>
     </>
   );

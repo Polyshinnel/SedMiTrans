@@ -60,6 +60,13 @@
   color: var(--color-brand-orange);
   font-size: 0.9375rem;
   font-weight: 700;
+  transition: color 200ms ease, font-weight 200ms ease;
+}
+
+.more:hover,
+.more:focus-visible {
+  color: var(--mantine-color-brandOrange-7);
+  font-weight: 800;
 }
 
 @media (max-width: 75rem) {

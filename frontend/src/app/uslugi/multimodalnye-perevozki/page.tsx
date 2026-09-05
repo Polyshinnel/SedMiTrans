@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import { Button, Text, Title } from '@mantine/core';
+import { Anchor, Box, Button, Text, Title } from '@mantine/core';
 import {
-  IconArrowRight,
   IconCalendarCheck,
+  IconClipboardCheck,
   IconContainer,
   IconMap2,
   IconRoute,
@@ -12,6 +12,7 @@ import {
   IconTruck,
 } from '@tabler/icons-react';
 import Image from 'next/image';
+import { CalculationRequestModal } from '@/components/calculation-request-modal';
 import styles from '../avtoperevozki/page.module.css';
 
 export const metadata: Metadata = {
@@ -32,7 +33,12 @@ const advantages = [
   { icon: IconShieldCheck, title: 'Контроль в точках стыковки', text: 'Сопровождаем перевалку, терминальные операции, документы и дальнейшее движение груза.' },
 ];
 
-const steps = ['Получаем маршрут и параметры груза', 'Проектируем схему доставки и рассчитываем ставку', 'Организуем отправку и перевалку на терминалах', 'Контролируем каждый участок до склада получателя'];
+const steps = [
+  { icon: IconClipboardCheck, text: 'Получаем маршрут и параметры груза' },
+  { icon: IconRoute, text: 'Проектируем схему доставки и рассчитываем ставку' },
+  { icon: IconContainer, text: 'Организуем отправку и перевалку на терминалах' },
+  { icon: IconShieldCheck, text: 'Контролируем каждый участок до склада получателя' },
+];
 
 export default function MultimodalTransportationPage() {
   return (
@@ -40,7 +46,13 @@ export default function MultimodalTransportationPage() {
       <section className={styles.hero} style={{ backgroundImage: "url('/images/multimodal-hero.webp')" }} aria-labelledby="multimodal-hero-title">
         <div className={styles.heroOverlay} />
         <div className={styles.heroContent}>
-          <Text className={styles.eyebrow}>Международная логистика</Text>
+          <Box className={styles.heroBreadcrumbs}>
+            <Anchor href="/" underline="never">Главная</Anchor>
+            <span aria-hidden="true">/</span>
+            <Anchor href="/uslugi" underline="never">Услуги</Anchor>
+            <span aria-hidden="true">/</span>
+            <Text component="span">Мультимодальные перевозки</Text>
+          </Box>
           <Title id="multimodal-hero-title" order={1} className={styles.heroTitle}>
             Мультимодальные перевозки <span>одним маршрутом</span>
           </Title>
@@ -49,8 +61,7 @@ export default function MultimodalTransportationPage() {
             Вы получаете единый расчёт, контроль и одного ответственного за весь путь груза.
           </Text>
           <div className={styles.heroActions}>
-            <Button component="a" href="/quote" color="brandOrange" size="lg">Рассчитать стоимость</Button>
-            <Button component="a" href="#how-we-work" variant="outline" color="white" size="lg">Как мы работаем</Button>
+            <CalculationRequestModal label="Рассчитать стоимость" size="lg" />
           </div>
         </div>
       </section>
@@ -84,14 +95,14 @@ export default function MultimodalTransportationPage() {
 
       <section className={styles.terminalSection} aria-labelledby="terminal-title">
         <div className={styles.terminalImageWrap}>
-          <Image src="/images/multimodal-terminal.webp" alt="Перевалка контейнера между железнодорожным вагоном и грузовым автомобилем" fill sizes="(max-width: 900px) 100vw, 50vw" className={styles.terminalImage} />
+          <Image src="/images/multimodal-terminal-port-sunset-20260905.png" alt="Контейнеровоз прибывает в порт на закате" fill sizes="(max-width: 900px) 100vw, 50vw" className={styles.terminalImage} />
           <div className={styles.fact}><strong>Без разрывов маршрута</strong><span>Координируем переход груза между всеми видами транспорта</span></div>
         </div>
         <div className={styles.terminalContent}>
           <Text className={styles.eyebrow}>Терминальная координация</Text>
           <Title id="terminal-title" order={2} className={styles.sectionTitle}>Перевалка — не пауза, а часть маршрута</Title>
           <Text>В портах, на железнодорожных станциях и складах временного хранения важны точные стыковки. Согласуем терминальные операции, документы и подачу следующего транспорта, чтобы груз не терял время в ожидании.</Text>
-          <a href="/quote" className={styles.textLink}>Обсудить перевозку <IconArrowRight size={18} stroke={1.8} /></a>
+          <CalculationRequestModal label="Обсудить перевозку" />
         </div>
       </section>
 
@@ -112,10 +123,10 @@ export default function MultimodalTransportationPage() {
       <section id="how-we-work" className={styles.workflow} aria-labelledby="workflow-title">
         <div className={styles.sectionHeading}>
           <Text className={styles.eyebrow}>Простой процесс</Text>
-          <Title id="workflow-title" order={2} className={styles.sectionTitle}>Как организуем мультимодальную перевозку</Title>
+          <Title id="workflow-title" order={2} className={styles.sectionTitle}>Как мы организуем мультимодальную перевозку</Title>
         </div>
         <ol className={styles.steps}>
-          {steps.map((step, index) => <li key={step}><span>0{index + 1}</span><Text>{step}</Text></li>)}
+          {steps.map(({ icon: Icon, text }, index) => <li key={text}><Icon className={styles.stepIcon} size={28} stroke={1.6} aria-hidden="true" /><span>0{index + 1}</span><Text>{text}</Text></li>)}
         </ol>
       </section>
 
@@ -125,7 +136,7 @@ export default function MultimodalTransportationPage() {
           <Title id="multimodal-cta-title" order={2}>Расскажите о поставке — соберём оптимальную схему</Title>
           <Text>Укажите маршрут, объём, точки отправления и получения. Вернёмся с расчётом и вариантами доставки.</Text>
         </div>
-        <Button component="a" href="/quote" color="brandOrange" size="lg">Получить расчёт</Button>
+        <CalculationRequestModal label="Получить расчёт" size="lg" />
       </section>
     </>
   );
