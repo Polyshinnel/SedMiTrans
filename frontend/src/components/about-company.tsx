@@ -11,7 +11,7 @@ export function AboutCompany() {
           SedMiTrans - надежный партнер в сфере международной логистики. Мы предлагаем комплексные решения
           для бизнеса любого масштаба, обеспечивая быструю, безопасную и экономичную доставку грузов по всему миру.
         </Text>
-        <Anchor href="#" className={styles.more} underline="never">
+        <Anchor href="/about" className={styles.more} underline="never">
           Подробнее о компании <IconArrowRight size={18} stroke={1.8} />
         </Anchor>
       </div>

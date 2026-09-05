@@ -19,7 +19,7 @@ const additionalServiceLinks = [
 ];
 
 const companyLinks = [
-  { label: 'О компании', href: '/#about' },
+  { label: 'О компании', href: '/about' },
   { label: 'Кейсы', href: '/#cases' },
   { label: 'Контакты', href: '/contacts' },
 ];

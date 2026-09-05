@@ -5,7 +5,7 @@ import { CalculationRequestModal } from '@/components/calculation-request-modal'
 const navigation = [
   { label: 'Главная', href: '/' },
   { label: 'Услуги', href: '/uslugi' },
-  { label: 'О компании', href: '/#about' },
+  { label: 'О компании', href: '/about' },
   { label: 'Кейсы', href: '/#cases' },
   { label: 'Контакты', href: '/contacts' },
 ];

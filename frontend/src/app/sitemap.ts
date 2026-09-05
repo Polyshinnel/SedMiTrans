@@ -5,6 +5,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url, lastModified: new Date(), changeFrequency: 'weekly', priority: 1 },
     { url: `${url}/uslugi`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${url}/about`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
     { url: `${url}/uslugi/avtoperevozki`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
     { url: `${url}/uslugi/zheleznodorozhnye-perevozki`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
     { url: `${url}/uslugi/aviaperevozki`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
