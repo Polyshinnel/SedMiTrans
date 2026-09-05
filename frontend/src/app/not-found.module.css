@@ -1,0 +1,45 @@
+.hero {
+  position: relative;
+  min-height: 640px;
+  overflow: hidden;
+  background: url('/images/404-route-not-found.png') center / cover no-repeat;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgb(31 28 25 / 78%) 0%, rgb(31 28 25 / 46%) 48%, rgb(31 28 25 / 6%) 100%);
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  margin-inline: 130px;
+  padding: 128px 0;
+}
+
+.title {
+  color: #fff;
+  font-size: clamp(2.5rem, 4.5vw, 4.5rem);
+  line-height: 1.08;
+}
+
+.description {
+  color: #f8f8f7;
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 75rem) {
+  .content { margin-inline: 48px; }
+}
+
+@media (max-width: 48rem) {
+  .hero {
+    min-height: 620px;
+    background-position: 64% center;
+  }
+
+  .overlay { background: rgb(31 28 25 / 76%); }
+  .content { margin-inline: 24px; padding: 88px 0; }
+}

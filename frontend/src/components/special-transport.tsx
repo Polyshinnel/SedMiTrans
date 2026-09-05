@@ -7,13 +7,13 @@ const specialTransports = [
     image: '/images/negabarit.webp',
     title: 'Сборные грузы',
     description: 'Перевозка промышленного оборудования, строительной техники, крупных конструкций и других нестандартных грузов.',
-    href: '/sbornye-gruzy',
+    href: '/uslugi/sbornye-gruzy',
   },
   {
     image: '/images/danger.webp',
     title: 'Проектные грузы',
     description: 'Организация перевозки опасных грузов с соблюдением международных требований и всех необходимых мер безопасности.',
-    href: '/proektnye-gruzy',
+    href: '/uslugi/proektnye-gruzy',
   },
 ];
 

@@ -1,14 +1,13 @@
-import { IconCalculator, IconFileText, IconMapPin, IconRoute, IconSend, IconTruck } from '@tabler/icons-react';
+import { IconCalculator, IconFileText, IconRoute, IconSend, IconTruck } from '@tabler/icons-react';
 import { Stack, Text, Title } from '@mantine/core';
 import styles from './workflow-section.module.css';
 
 const stages = [
   { icon: IconSend, title: 'Запрос', description: 'Оставьте заявку удобным для вас способом' },
-  { icon: IconCalculator, title: 'Консультирование, подбор маршрута', description: 'Оптимизируем маршруты и транспорт под специфику вашей ВЭД' },
-  { icon: IconRoute, title: 'Подбор маршрута', description: 'Выбираем оптимальный маршрут и транспорт.' },
+  { icon: IconRoute, title: 'Консультирование, подбор маршрута', description: 'Оптимизируем маршруты и транспорт под специфику вашей ВЭД' },
+  { icon: IconCalculator, title: 'Расчет стоимости', description: 'Мы рассчитываем стоимость и сроки доставки.' },
   { icon: IconFileText, title: 'Оформление обязательств', description: 'Согласование деталей и подписание заявки' },
   { icon: IconTruck, title: 'Доставка вашего груза', description: 'Доставка груза по согласованному маршруту' },
-  { icon: IconMapPin, title: 'Доставка получателю', description: 'Доставляем груз точно в срок.' },
 ];
 
 export function WorkflowSection() {

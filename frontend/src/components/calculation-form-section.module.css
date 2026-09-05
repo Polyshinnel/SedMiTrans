@@ -2,12 +2,12 @@
   margin: 0 130px 96px;
   padding: 64px;
   border-radius: 10px;
-  background: #fff;
+  background: var(--color-brand-gray);
 }
 
 .heading {
   margin-bottom: 36px;
-  color: var(--color-brand-gray);
+  color: #fff;
   font-size: clamp(2rem, 3vw, 3rem);
   text-align: center;
 }
@@ -17,6 +17,34 @@
   margin: 0 auto;
 }
 
+.form :global(.mantine-InputWrapper-label) {
+  color: #fff;
+}
+
+.form :global(.mantine-Input-input) {
+  border-color: var(--mantine-color-brandGray-3);
+  background-color: var(--mantine-color-brandGray-8);
+  color: #fff;
+}
+
+.form :global(.mantine-Input-input::placeholder) {
+  color: var(--mantine-color-brandGray-2);
+  opacity: 1;
+}
+
+.form :global(.mantine-Input-input:focus) {
+  border-color: var(--mantine-color-brandOrange-6);
+}
+
 .submit {
   align-self: end;
+}
+
+@media (max-width: 75rem) {
+  .section { margin-inline: 48px; }
+}
+
+@media (max-width: 48rem) {
+  .section { margin: 0 24px 56px; padding: 36px 24px; }
+  .form :global(.mantine-SimpleGrid-root) { grid-template-columns: 1fr; }
 }

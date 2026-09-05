@@ -1,11 +1,12 @@
-import { Anchor, Box, Button, Group, Stack } from '@mantine/core';
+import { Anchor, Box, Group, Stack } from '@mantine/core';
 import Image from 'next/image';
+import { CalculationRequestModal } from '@/components/calculation-request-modal';
 
 const navigation = [
-  { label: 'Услуги', href: '/#services' },
-  { label: 'Специальные перевозки', href: '/#special-transportation' },
+  { label: 'Главная', href: '/' },
+  { label: 'Услуги', href: '/uslugi' },
   { label: 'О компании', href: '/#about' },
-  { label: 'Отрасли', href: '/#industries' },
+  { label: 'Кейсы', href: '/#cases' },
   { label: 'Контакты', href: '/contacts' },
 ];
 
@@ -35,9 +36,7 @@ export function Header() {
             <Anchor href="tel:+74951234567" c="white" underline="never" fw={600}>+7 (495) 123-45-67</Anchor>
             <Anchor href="mailto:info@sedmitrans.ru" size="sm" c="white" underline="never">info@sedmitrans.ru</Anchor>
           </Stack>
-          <Button component="a" href="/quote" color="brandOrange" c="white" radius="md" size="md">
-            Получить расчёт
-          </Button>
+          <CalculationRequestModal />
         </Group>
       </Group>
     </Box>

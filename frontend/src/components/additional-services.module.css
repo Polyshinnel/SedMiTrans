@@ -50,3 +50,13 @@
   font-size: 0.875rem;
   font-weight: 700;
 }
+
+@media (max-width: 75rem) {
+  .section { padding-inline: 48px; }
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 48rem) {
+  .section { padding: 0 24px 56px; }
+  .grid { grid-template-columns: 1fr; }
+}

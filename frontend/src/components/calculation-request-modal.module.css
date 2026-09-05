@@ -1,0 +1,27 @@
+.content,
+.header,
+.body {
+  background: var(--color-brand-gray);
+}
+
+.header {
+  position: relative;
+  min-height: 0;
+  padding: 0;
+}
+
+.body {
+  padding: 32px;
+}
+
+.close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 1;
+  color: #fff;
+}
+
+.close:hover {
+  background: var(--mantine-color-brandGray-7);
+}

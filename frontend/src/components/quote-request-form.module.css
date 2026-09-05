@@ -1,0 +1,30 @@
+.dark {
+  border: 0;
+  background: var(--color-brand-gray);
+}
+
+.formHeading {
+  margin-bottom: 8px;
+  color: #fff;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  line-height: 1.15;
+}
+
+.dark :global(.mantine-InputWrapper-label) {
+  color: #fff;
+}
+
+.dark :global(.mantine-Input-input) {
+  border-color: var(--mantine-color-brandGray-3);
+  background: var(--mantine-color-brandGray-8);
+  color: #fff;
+}
+
+.dark :global(.mantine-Input-input::placeholder) {
+  color: var(--mantine-color-brandGray-2);
+  opacity: 1;
+}
+
+.dark :global(.mantine-Input-input:focus) {
+  border-color: var(--mantine-color-brandOrange-6);
+}

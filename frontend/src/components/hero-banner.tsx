@@ -1,8 +1,9 @@
 'use client';
 
-import { Button, Group, Stack, Text, Title } from '@mantine/core';
+import { Group, Stack, Text, Title } from '@mantine/core';
 import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { CalculationRequestModal } from '@/components/calculation-request-modal';
 import styles from './hero-banner.module.css';
 
 export function HeroBanner() {
@@ -23,12 +24,7 @@ export function HeroBanner() {
               </Text>
             </Stack>
             <Group gap="md">
-              <Button component="a" href="/quote" color="brandOrange" size="lg">
-                Рассчитать стоимость
-              </Button>
-              <Button component="a" href="#contacts" variant="outline" color="white" size="lg">
-                Получить консультацию
-              </Button>
+              <CalculationRequestModal label="Рассчитать стоимость" size="lg" />
             </Group>
           </Stack>
         </SwiperSlide>

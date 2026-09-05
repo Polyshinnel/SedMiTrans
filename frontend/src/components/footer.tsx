@@ -3,10 +3,10 @@ import { IconBrandTelegram, IconBrandWhatsapp, IconMail, IconMapPin, IconMessage
 import Image from 'next/image';
 
 const serviceLinks = [
-  { label: 'Автоперевозки', href: '/avtoperevozki' },
-  { label: 'Железнодорожные перевозки', href: '/zheleznodorozhnye-perevozki' },
-  { label: 'Авиаперевозки', href: '/aviaperevozki' },
-  { label: 'Мультимодальные перевозки', href: '/multimodalnye-perevozki' },
+  { label: 'Автоперевозки', href: '/uslugi/avtoperevozki' },
+  { label: 'Железнодорожные перевозки', href: '/uslugi/zheleznodorozhnye-perevozki' },
+  { label: 'Авиаперевозки', href: '/uslugi/aviaperevozki' },
+  { label: 'Мультимодальные перевозки', href: '/uslugi/multimodalnye-perevozki' },
   'Сборные грузы',
   'Проектные грузы',
 ];
@@ -18,7 +18,11 @@ const additionalServiceLinks = [
   'Консультирование по вопросам ВЭД',
 ];
 
-const companyLinks = ['О компании', 'Преимущества', 'Отрасли', { label: 'Контакты', href: '/contacts' }];
+const companyLinks = [
+  { label: 'О компании', href: '/#about' },
+  { label: 'Кейсы', href: '/#cases' },
+  { label: 'Контакты', href: '/contacts' },
+];
 
 function FooterLinks({ title, links }: { title: string; links: (string | { label: string; href: string })[] }) {
   return (
@@ -86,8 +90,8 @@ export function Footer() {
         <Group justify="space-between" wrap="nowrap">
           <Text size="sm" c="white">2026 SedMiTrans. Все права защищены.</Text>
           <Group gap="lg" wrap="nowrap">
-            <Anchor href="#" size="sm" c="white" underline="never">Политика конфиденциальности</Anchor>
-            <Anchor href="#" size="sm" c="white" underline="never">Согласие на обработку персональных данных</Anchor>
+            <Anchor href="/politika-obrabotki-personalnyh-dannyh" size="sm" c="white" underline="never">Политика обработки ПД</Anchor>
+            <Anchor href="/soglasie-na-obrabotku-personalnyh-dannyh" size="sm" c="white" underline="never">Согласие на обработку персональных данных</Anchor>
           </Group>
         </Group>
       </Stack>

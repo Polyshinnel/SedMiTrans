@@ -1,0 +1,38 @@
+.intro {
+  margin-inline: 130px;
+  padding-top: 36px;
+  padding-bottom: 8px;
+}
+
+.breadcrumbs {
+  margin-bottom: 20px;
+  color: var(--color-brand-gray);
+  font-size: 0.9375rem;
+}
+
+.breadcrumbs a {
+  color: var(--color-brand-orange);
+}
+
+.title {
+  color: var(--color-brand-gray);
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  line-height: 1.1;
+}
+
+@media (max-width: 75rem) {
+  .intro {
+    margin-inline: 48px;
+  }
+}
+
+@media (max-width: 48rem) {
+  .intro {
+    margin-inline: 24px;
+    padding-top: 24px;
+  }
+
+  .breadcrumbs {
+    margin-bottom: 30px;
+  }
+}

@@ -61,3 +61,13 @@
   font-size: 0.9375rem;
   font-weight: 700;
 }
+
+@media (max-width: 75rem) {
+  .section { padding-inline: 48px; }
+}
+
+@media (max-width: 48rem) {
+  .section { padding: 0 24px 56px; }
+  .grid { grid-template-columns: 1fr; }
+  .content { padding: 56px 32px; }
+}
