@@ -1,6 +1,6 @@
 'use client';
 
-import { Alert, Button, Paper, Stack, Text, TextInput, Textarea, Title } from '@mantine/core';
+import { Alert, Anchor, Button, Paper, Stack, Text, TextInput, Textarea, Title } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useRef, useState } from 'react';
 import { browserApi } from '@/lib/api/browser';
@@ -105,6 +105,7 @@ export function QuoteRequestForm({ dark = false, calculationFields = false, head
         <Button type="submit" loading={form.submitting} disabled={retryAfter !== null}>
           {retryAfter === null ? 'Отправить заявку' : `Повторите через ${retryAfter} сек.`}
         </Button>
+        {dark && <Text className={styles.consent}>Отправляя заявку вы соглашаетесь с нашей <Anchor href="/politika-obrabotki-personalnyh-dannyh">политикой обработки персональных данных</Anchor>.</Text>}
       </Stack>
     </Paper>
   );

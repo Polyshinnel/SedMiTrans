@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
-import { Button, Text, Title } from '@mantine/core';
+import { Anchor, Box, Button, Text, Title } from '@mantine/core';
 import {
-  IconArrowRight,
   IconBox,
   IconClipboardCheck,
   IconPackages,
@@ -11,6 +10,7 @@ import {
   IconTruck,
 } from '@tabler/icons-react';
 import Image from 'next/image';
+import { CalculationRequestModal } from '@/components/calculation-request-modal';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {
@@ -31,7 +31,12 @@ const advantages = [
   { icon: IconShieldCheck, title: 'Документы и риски', text: 'Помогаем с экспортно-импортными документами, таможенным оформлением и страхованием.' },
 ];
 
-const steps = ['Получаем заявку и данные о грузе', 'Рассчитываем маршрут и согласовываем ставку', 'Организуем забор, документы и погрузку', 'Контролируем доставку до получателя'];
+const steps = [
+  { icon: IconClipboardCheck, text: 'Получаем заявку и данные о грузе' },
+  { icon: IconRoute, text: 'Рассчитываем маршрут и согласовываем ставку' },
+  { icon: IconTruck, text: 'Организуем забор, документы и погрузку' },
+  { icon: IconShieldCheck, text: 'Контролируем доставку до получателя' },
+];
 
 export default function AutoTransportationPage() {
   return (
@@ -39,17 +44,22 @@ export default function AutoTransportationPage() {
       <section className={styles.hero} aria-labelledby="auto-hero-title">
         <div className={styles.heroOverlay} />
         <div className={styles.heroContent}>
-          <Text className={styles.eyebrow}>Международная логистика</Text>
+          <Box className={styles.heroBreadcrumbs}>
+            <Anchor href="/" underline="never">Главная</Anchor>
+            <span aria-hidden="true">/</span>
+            <Anchor href="/uslugi" underline="never">Услуги</Anchor>
+            <span aria-hidden="true">/</span>
+            <Text component="span">Автоперевозки</Text>
+          </Box>
           <Title id="auto-hero-title" order={1} className={styles.heroTitle}>
-            Автоперевозки грузов <span>без лишних километров</span>
+            Автоперевозки <span>без лишних километров</span>
           </Title>
           <Text className={styles.heroDescription}>
             Доставляем полные и сборные грузы из Европы, Азии и стран ЕАЭС. Подбираем транспорт,
             маршрут и комплект документов под вашу задачу.
           </Text>
           <div className={styles.heroActions}>
-            <Button component="a" href="/quote" color="brandOrange" size="lg">Рассчитать стоимость</Button>
-            <Button component="a" href="#how-we-work" variant="outline" color="white" size="lg">Как мы работаем</Button>
+            <CalculationRequestModal label="Рассчитать стоимость" size="lg" />
           </div>
         </div>
       </section>
@@ -90,7 +100,7 @@ export default function AutoTransportationPage() {
           <Text className={styles.eyebrow}>Доставка без разрывов</Text>
           <Title id="terminal-title" order={2} className={styles.sectionTitle}>Больше, чем просто подача машины</Title>
           <Text>Перед рейсом проверяем требования к грузу, согласовываем точки погрузки и выгрузки, готовим маршрут. Если нужна консолидация, маркировка или временное хранение — подключаем складскую логистику.</Text>
-          <a href="/quote" className={styles.textLink}>Обсудить перевозку <IconArrowRight size={18} stroke={1.8} /></a>
+          <CalculationRequestModal label="Обсудить перевозку" />
         </div>
       </section>
 
@@ -111,10 +121,10 @@ export default function AutoTransportationPage() {
       <section id="how-we-work" className={styles.workflow} aria-labelledby="workflow-title">
         <div className={styles.sectionHeading}>
           <Text className={styles.eyebrow}>Простой процесс</Text>
-          <Title id="workflow-title" order={2} className={styles.sectionTitle}>Как организуем автоперевозку</Title>
+          <Title id="workflow-title" order={2} className={styles.sectionTitle}>Как мы организуем автоперевозки</Title>
         </div>
         <ol className={styles.steps}>
-          {steps.map((step, index) => <li key={step}><span>0{index + 1}</span><Text>{step}</Text></li>)}
+          {steps.map(({ icon: Icon, text }, index) => <li key={text}><Icon className={styles.stepIcon} size={28} stroke={1.6} aria-hidden="true" /><span>0{index + 1}</span><Text>{text}</Text></li>)}
         </ol>
       </section>
 
@@ -124,7 +134,7 @@ export default function AutoTransportationPage() {
           <Title id="auto-cta-title" order={2}>Расскажите о грузе — предложим оптимальный маршрут</Title>
           <Text>Укажите направление, габариты и желаемые сроки. Вернёмся с расчётом и вариантами доставки.</Text>
         </div>
-        <Button component="a" href="/quote" color="brandOrange" size="lg">Получить расчёт</Button>
+        <CalculationRequestModal label="Получить расчёт" size="lg" />
       </section>
     </>
   );

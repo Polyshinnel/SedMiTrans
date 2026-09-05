@@ -1,19 +1,24 @@
 .hero { position: relative; min-height: 480px; display: flex; align-items: center; overflow: hidden; background: url('/images/contacts-hero.png') center / cover; }
 .heroOverlay { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(38, 35, 31, .93) 0%, rgba(38, 35, 31, .79) 43%, rgba(38, 35, 31, .28) 100%); }
-.heroContent { position: relative; z-index: 1; width: 100%; padding-top: 56px; padding-bottom: 56px; }
+.heroContent { position: relative; z-index: 1; width: 100%; max-width: none; padding: 72px 130px; }
+.heroBreadcrumbs { display: flex; align-items: center; gap: 10px; color: rgba(255, 255, 255, .82); font-size: .9375rem; }
+.heroBreadcrumbs a { color: var(--color-brand-orange); }
 .heroTitle { color: white; font-size: clamp(2.5rem, 4.5vw, 4.5rem); line-height: 1.08; }
+.heroAccent { color: var(--color-brand-orange); }
 .heroText { color: #f8f8f7; font-size: 1.125rem; line-height: 1.65; }
-.section { padding-top: 76px; padding-bottom: 76px; }
+.section { max-width: none; padding: 76px 130px; }
 .contactCard { min-height: 224px; border: 1px solid #e7e3df; background: white; }
 .contactValue { display: block; margin-top: 7px; color: var(--color-brand-gray); font-size: 1.04rem; font-weight: 700; line-height: 1.5; text-decoration: none; }
 .contactValue:hover { color: var(--color-brand-orange); }
 .mapSection { padding: 8px 0 84px; }
+.mapSection > div { max-width: none; padding-inline: 130px; }
 .mapLayout { overflow: hidden; border-radius: 12px; background: white; box-shadow: 0 12px 40px rgba(49, 43, 37, .09); }
 .mapCopy { padding: clamp(2rem, 5vw, 4.5rem); }
 .map { min-height: 480px; background: #eee8e2; }
 .map > div { height: 100%; }
 .map :global(.ymaps3x0--map) { width: 100%; height: 100%; }
 .mapLoading, .mapFallback { display: grid; place-items: center; width: 100%; height: 100%; min-height: 480px; color: var(--color-brand-gray); background: linear-gradient(135deg, #eee9e4, #ddd5cb); text-decoration: none; font-weight: 600; }
-.bottomSection { padding-bottom: 84px; }
+.bottomSection { max-width: none; padding: 0 130px 84px; }
 .cta { background: linear-gradient(115deg, #4f4943 0%, #665b51 100%); }
-@media (max-width: 48rem) { .hero { min-height: 520px; background-position: 62% center; } .heroOverlay { background: rgba(38, 35, 31, .78); } .section { padding-top: 48px; padding-bottom: 48px; } .mapSection { padding-bottom: 48px; } .map { min-height: 390px; } .mapLoading, .mapFallback { min-height: 390px; } .bottomSection { padding-bottom: 48px; } }
+@media (max-width: 75rem) { .heroContent { padding-inline: 48px; } .section { padding-inline: 48px; } .mapSection > div { padding-inline: 48px; } .bottomSection { padding-inline: 48px; } }
+@media (max-width: 48rem) { .hero { min-height: 520px; background-position: 62% center; } .heroOverlay { background: rgba(38, 35, 31, .78); } .heroContent { padding: 64px 24px; } .section { padding: 48px 24px; } .mapSection { padding-bottom: 48px; } .mapSection > div { padding-inline: 24px; } .map { min-height: 390px; } .mapLoading, .mapFallback { min-height: 390px; } .bottomSection { padding: 0 24px 48px; } }

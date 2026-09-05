@@ -10,6 +10,18 @@
   line-height: 1.15;
 }
 
+.consent {
+  color: var(--mantine-color-brandGray-3);
+  font-size: .875rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.consent a {
+  color: var(--color-brand-orange);
+  font-size: inherit;
+}
+
 .dark :global(.mantine-InputWrapper-label) {
   color: #fff;
 }

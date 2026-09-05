@@ -1,5 +1,6 @@
-import { Anchor, Badge, Box, Button, Container, Group, Paper, SimpleGrid, Stack, Text, ThemeIcon, Title } from '@mantine/core';
-import { IconArrowUpRight, IconClock, IconMail, IconMapPin, IconPhone, IconSend } from '@tabler/icons-react';
+import { ActionIcon, Anchor, Badge, Box, Button, Container, Group, Paper, SimpleGrid, Stack, Text, ThemeIcon, Title } from '@mantine/core';
+import { IconArrowUpRight, IconBrandTelegram, IconBrandWhatsapp, IconClock, IconMail, IconMapPin, IconMessageCircle, IconPhone } from '@tabler/icons-react';
+import { CalculationRequestModal } from '@/components/calculation-request-modal';
 import { YandexMap } from '@/components/yandex-map';
 import styles from './page.module.css';
 
@@ -21,7 +22,12 @@ export default function ContactsPage() {
         <div className={styles.heroOverlay} />
         <Container size="xl" className={styles.heroContent}>
           <Stack gap="xl" maw={690}>
-            <Title order={1} className={styles.heroTitle}>Sedmitrans - надежная доставка</Title>
+            <Box className={styles.heroBreadcrumbs}>
+              <Anchor href="/" underline="never">Главная</Anchor>
+              <span aria-hidden="true">/</span>
+              <Text component="span">Контакты</Text>
+            </Box>
+            <Title order={1} className={styles.heroTitle}>SedMiTrans — <span className={styles.heroAccent}>надежная доставка</span></Title>
             <Text className={styles.heroText}>Расскажите о маршруте и грузе — специалист предложит удобный способ перевозки, сроки и рассчитает стоимость.</Text>
             <Group gap="md"><Button component="a" href="tel:+74951234567" color="brandOrange" size="lg">Позвонить нам</Button><Button component="a" href="/quote" variant="outline" color="white" size="lg">Оставить заявку</Button></Group>
           </Stack>
@@ -58,7 +64,16 @@ export default function ContactsPage() {
 
       <Container size="xl" className={styles.bottomSection}>
         <Paper className={styles.cta} radius="md" p={{ base: 'xl', sm: 46 }}>
-          <Stack align="center" gap="md"><ThemeIcon color="brandOrange" variant="white" size={52} radius="xl"><IconSend size={24} /></ThemeIcon><Title order={2} ta="center" c="white">Нужен расчёт перевозки?</Title><Text ta="center" c="gray.2" maw={580}>Оставьте заявку — мы уточним детали и вернёмся с предложением.</Text><Button component="a" href="/quote" color="brandOrange" size="lg" mt="sm">Получить расчёт</Button></Stack>
+          <Stack align="center" gap="md">
+            <Group gap="sm">
+              <ActionIcon component="a" href="#" aria-label="Telegram" variant="filled" color="white" c="brandGray.6" radius="xl" size="lg"><IconBrandTelegram size={19} stroke={1.8} /></ActionIcon>
+              <ActionIcon component="a" href="#" aria-label="WhatsApp" variant="filled" color="white" c="brandGray.6" radius="xl" size="lg"><IconBrandWhatsapp size={19} stroke={1.8} /></ActionIcon>
+              <ActionIcon component="a" href="#" aria-label="MAX" variant="filled" color="white" c="brandGray.6" radius="xl" size="lg"><IconMessageCircle size={19} stroke={1.8} /></ActionIcon>
+            </Group>
+            <Title order={2} ta="center" c="white">Нужен расчёт перевозки?</Title>
+            <Text ta="center" c="gray.2" maw={580}>Оставьте заявку на сайте, или напишите нам в соц сетях</Text>
+            <CalculationRequestModal label="Получить расчет" size="lg" />
+          </Stack>
         </Paper>
       </Container>
     </>
