@@ -39,7 +39,7 @@ export function AdditionalServices() {
                 <Text className={styles.description}>{description}</Text>
               </Stack>
             </Group>
-            <Anchor href="#" className={styles.more} underline="never">
+            <Anchor href={title === 'Таможенное оформление' ? '/uslugi/tamozhennoe-oformlenie' : title === 'Страхование грузов' ? '/uslugi/strahovanie-gruzov' : title === 'Складская логистика' ? '/uslugi/skladskaya-logistika' : '/uslugi/konsultirovanie-po-voprosam-ved'} className={styles.more} underline="never">
               Подробнее <IconArrowRight size={18} stroke={1.8} />
             </Anchor>
           </article>

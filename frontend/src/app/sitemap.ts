@@ -12,5 +12,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${url}/uslugi/multimodalnye-perevozki`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
     { url: `${url}/uslugi/sbornye-gruzy`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
     { url: `${url}/uslugi/proektnye-gruzy`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${url}/uslugi/tamozhennoe-oformlenie`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${url}/uslugi/strahovanie-gruzov`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${url}/uslugi/skladskaya-logistika`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${url}/uslugi/konsultirovanie-po-voprosam-ved`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
   ];
 }

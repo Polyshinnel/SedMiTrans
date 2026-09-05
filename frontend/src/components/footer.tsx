@@ -12,10 +12,10 @@ const serviceLinks = [
 ];
 
 const additionalServiceLinks = [
-  'Таможенное оформление',
-  'Страхование грузов',
-  'Складская логистика',
-  'Консультирование по вопросам ВЭД',
+  { label: 'Таможенное оформление', href: '/uslugi/tamozhennoe-oformlenie' },
+  { label: 'Страхование грузов', href: '/uslugi/strahovanie-gruzov' },
+  { label: 'Складская логистика', href: '/uslugi/skladskaya-logistika' },
+  { label: 'Консультирование по вопросам ВЭД', href: '/uslugi/konsultirovanie-po-voprosam-ved' },
 ];
 
 const companyLinks = [
