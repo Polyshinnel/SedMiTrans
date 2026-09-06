@@ -33,7 +33,6 @@
   position: relative;
   height: 210px;
   flex: 0 0 auto;
-  overflow: hidden;
   border-radius: 10px;
 }
 
@@ -41,6 +40,8 @@
   position: absolute;
   inset: 0;
   display: block;
+  overflow: hidden;
+  border-radius: 10px;
 }
 
 .image {
@@ -58,6 +59,7 @@
   position: absolute;
   right: 18px;
   bottom: -24px;
+  z-index: 1;
   display: grid;
   width: 56px;
   height: 56px;
