@@ -6,7 +6,7 @@ const navigation = [
   { label: 'Главная', href: '/' },
   { label: 'Услуги', href: '/uslugi' },
   { label: 'О компании', href: '/about' },
-  { label: 'Кейсы', href: '/#cases' },
+  { label: 'Кейсы', href: '/kejsy' },
   { label: 'Контакты', href: '/contacts' },
 ];
 

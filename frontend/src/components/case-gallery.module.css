@@ -1,0 +1,8 @@
+.slider { padding-bottom: 46px; }
+.slide { position: relative; height: 330px; overflow: hidden; border-radius: 10px; background: #fff; }
+.link { display: block; width: 100%; height: 100%; }
+.image { object-fit: cover; transition: transform 300ms ease; }
+.link:hover .image, .link:focus-visible .image { transform: scale(1.04); }
+.slider :global(.swiper-button-prev), .slider :global(.swiper-button-next) { color: var(--color-brand-orange); }
+.slider :global(.swiper-pagination-bullet-active) { background: var(--color-brand-orange); }
+@media (max-width: 48rem) { .slide { height: 250px; } }

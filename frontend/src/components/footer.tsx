@@ -20,7 +20,7 @@ const additionalServiceLinks = [
 
 const companyLinks = [
   { label: 'О компании', href: '/about' },
-  { label: 'Кейсы', href: '/#cases' },
+  { label: 'Кейсы', href: '/kejsy' },
   { label: 'Контакты', href: '/contacts' },
 ];
 
