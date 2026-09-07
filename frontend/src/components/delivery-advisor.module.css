@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   min-height: 560px;
-  margin: 0 130px 96px;
+  margin: 0 var(--page-gutter) 96px;
   overflow: hidden;
   border-radius: 10px;
 }
@@ -82,4 +82,66 @@
   color: var(--color-brand-gray);
   font-size: clamp(2rem, 3vw, 2.75rem);
   line-height: 1.2;
+}
+
+@media (max-width: 75rem) {
+  .section {
+    grid-template-columns: 1fr;
+  }
+
+  .map {
+    min-height: 560px;
+  }
+}
+
+@media (max-width: 48rem) {
+  .section {
+    margin: 0 24px 56px;
+  }
+
+  .advisor,
+  .map {
+    padding: 28px;
+  }
+
+  .heading,
+  .mapTitle {
+    font-size: 1.75rem;
+  }
+
+  .heading {
+    margin-bottom: 20px;
+  }
+
+  .table {
+    font-size: 0.8125rem;
+  }
+
+  .table th,
+  .table td {
+    padding: 10px 0;
+  }
+
+  .table th {
+    font-size: 0.6875rem;
+  }
+
+  .table th + th,
+  .table td + td {
+    padding-left: 12px;
+  }
+
+  .consultation {
+    margin-top: 20px;
+    font-size: 0.875rem;
+  }
+
+  .contactLink {
+    margin-left: 4px;
+    font-size: 0.8125rem;
+  }
+
+  .map {
+    min-height: 360px;
+  }
 }

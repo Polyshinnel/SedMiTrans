@@ -40,3 +40,10 @@
 .dark :global(.mantine-Input-input:focus) {
   border-color: var(--mantine-color-brandOrange-6);
 }
+
+@media (max-width: 48rem) {
+  .consent {
+    font-size: 0.75rem;
+    line-height: 1.35;
+  }
+}

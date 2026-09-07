@@ -1,6 +1,10 @@
-import { Anchor, Box, Group, Stack } from '@mantine/core';
+'use client';
+
+import { Anchor, Box, Burger, Drawer, Group, Stack, Text } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
 import Image from 'next/image';
 import { CalculationRequestModal } from '@/components/calculation-request-modal';
+import styles from './header.module.css';
 
 const navigation = [
   { label: 'Главная', href: '/' },
@@ -11,14 +15,16 @@ const navigation = [
 ];
 
 export function Header() {
+  const [opened, { close, toggle }] = useDisclosure(false);
+
   return (
     <Box
       component="header"
       h={100}
       bg="brandGray.6"
-      style={{ paddingInline: '130px' }}
+      className={styles.header}
     >
-      <Group h="100%" justify="space-between" wrap="nowrap">
+      <Group h="100%" justify="space-between" wrap="nowrap" className={styles.desktopHeader}>
         <Anchor href="/" underline="never" aria-label="SedMiTrans — на главную">
           <Image src="/images/logo.svg" alt="SedMiTrans" width={142} height={76} priority />
         </Anchor>
@@ -39,6 +45,44 @@ export function Header() {
           <CalculationRequestModal />
         </Group>
       </Group>
+
+      <Group h="100%" justify="space-between" wrap="nowrap" className={styles.tabletHeader}>
+        <Anchor href="/" underline="never" aria-label="SedMiTrans — на главную">
+          <Image className={styles.mobileLogo} src="/images/logo.svg" alt="SedMiTrans" width={142} height={76} priority />
+        </Anchor>
+        <Burger opened={opened} onClick={toggle} color="white" size="28px" aria-label={opened ? 'Закрыть меню' : 'Открыть меню'} />
+      </Group>
+
+      <Drawer
+        opened={opened}
+        onClose={close}
+        position="right"
+        size={360}
+        padding="xl"
+        title="Меню"
+        classNames={{ content: styles.drawer, header: styles.drawerHeader, title: styles.drawerTitle, close: styles.drawerClose, body: styles.drawerBody }}
+        overlayProps={{ backgroundOpacity: 0.55, blur: 2 }}
+      >
+        <Stack gap="xl">
+          <Stack component="nav" gap="lg" aria-label="Основная навигация">
+            {navigation.map(({ label, href }) => (
+              <Anchor key={href} href={href} className={styles.mobileNavLink} onClick={close}>
+                {label}
+              </Anchor>
+            ))}
+          </Stack>
+
+          <Box className={styles.contacts}>
+            <Text className={styles.contactsLabel}>Контакты</Text>
+            <Stack gap={6}>
+              <Anchor href="tel:+74951234567" className={styles.contactLink}>+7 (495) 123-45-67</Anchor>
+              <Anchor href="mailto:info@sedmitrans.ru" className={styles.contactLink}>info@sedmitrans.ru</Anchor>
+            </Stack>
+          </Box>
+
+          <CalculationRequestModal label="Получить расчёт" size="md" />
+        </Stack>
+      </Drawer>
     </Box>
   );
 }

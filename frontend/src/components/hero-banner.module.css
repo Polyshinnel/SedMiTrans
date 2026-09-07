@@ -11,7 +11,7 @@
   align-items: center;
   min-height: 680px;
   overflow: hidden;
-  padding: 130px;
+  padding: 130px var(--page-gutter);
   background-image: url('/images/Hero-banner.webp');
   background-position: center;
   background-size: cover;
@@ -39,4 +39,28 @@
   max-width: 680px;
   font-size: 1.125rem;
   line-height: 1.55;
+}
+
+@media (max-width: 48rem) {
+  .slide {
+    height: calc(100dvh - 72px);
+    min-height: calc(100dvh - 72px);
+    padding-inline: 24px;
+    background-image: url('/images/hero-banner-mobile.png');
+    background-position: center;
+  }
+
+  .title {
+    font-size: 2.25rem;
+  }
+
+  .description {
+    font-size: 1rem;
+  }
+
+  .content :global(.mantine-Button-root) {
+    height: 42px;
+    padding-inline: 18px;
+    font-size: 0.875rem;
+  }
 }

@@ -1,5 +1,5 @@
 .section {
-  margin: 0 130px 96px;
+  margin: 0 var(--page-gutter) 96px;
   padding: 64px;
   border-radius: 10px;
   background: var(--color-brand-gray);

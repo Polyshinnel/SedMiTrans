@@ -1,7 +1,7 @@
 .section {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  margin: 0 130px 96px;
+  margin: 0 var(--page-gutter) 96px;
   padding: 48px;
   border-radius: 10px;
   background: #fff;
@@ -30,4 +30,28 @@
 .label {
   color: #827a73;
   font-size: 1rem;
+}
+
+@media (max-width: 75rem) {
+  .section {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 48rem) {
+  .section {
+    grid-template-columns: 1fr;
+    margin-inline: 24px;
+    padding: 28px;
+  }
+
+  .stat,
+  .stat:not(:last-child) {
+    border-right: 0;
+    border-bottom: 1px solid #eeecea;
+  }
+
+  .stat:last-child {
+    border-bottom: 0;
+  }
 }

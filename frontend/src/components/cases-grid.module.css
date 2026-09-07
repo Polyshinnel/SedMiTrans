@@ -1,4 +1,4 @@
-.section { padding: 32px 130px 96px; }
+.section { padding: 32px var(--page-gutter) 96px; }
 .grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
 .card { display: flex; min-height: 460px; flex-direction: column; overflow: hidden; border-radius: 10px; background: #fff; }
 .imageLink { position: relative; display: block; height: 210px; flex: 0 0 auto; overflow: hidden; }

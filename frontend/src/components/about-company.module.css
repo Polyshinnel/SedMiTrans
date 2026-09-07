@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: stretch;
-  margin: 0 130px 96px;
+  margin: 0 var(--page-gutter) 96px;
 }
 
 .textPanel {
@@ -43,4 +43,48 @@
   background-image: url('/images/build2.webp');
   background-position: center;
   background-size: cover;
+}
+
+@media (max-width: 75rem) {
+  .section {
+    grid-template-columns: 1fr;
+  }
+
+  .textPanel {
+    margin-right: 0;
+    padding: 64px 48px;
+    border-radius: 10px 10px 0 0;
+  }
+
+  .image {
+    border-radius: 0 0 10px 10px;
+  }
+}
+
+@media (max-width: 48rem) {
+  .section {
+    margin-inline: 24px;
+  }
+
+  .textPanel {
+    padding: 32px 24px;
+  }
+
+  .heading {
+    margin-bottom: 16px;
+    font-size: 1.75rem;
+  }
+
+  .description {
+    font-size: 0.9375rem;
+  }
+
+  .image {
+    min-height: 240px;
+  }
+
+  .more {
+    margin-top: 24px;
+    font-size: 0.875rem;
+  }
 }

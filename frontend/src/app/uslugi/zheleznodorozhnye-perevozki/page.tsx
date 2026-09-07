@@ -53,7 +53,7 @@ export default function RailTransportationPage() {
             <span aria-hidden="true">/</span>
             <Text component="span">Железнодорожные перевозки</Text>
           </Box>
-          <Title id="rail-hero-title" order={1} className={styles.heroTitle}>
+          <Title id="rail-hero-title" order={1} className={`${styles.heroTitle} ${styles.railHeroTitle}`}>
             Железнодорожные перевозки <span>по выверенному маршруту</span>
           </Title>
           <Text className={styles.heroDescription}>

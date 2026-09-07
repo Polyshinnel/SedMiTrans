@@ -1,5 +1,5 @@
 .section {
-  padding: 0 130px 96px;
+  padding: 0 var(--page-gutter) 96px;
 }
 
 .heading {
@@ -52,4 +52,28 @@
   color: #827a73;
   font-size: 0.875rem;
   line-height: 1.5;
+}
+
+@media (max-width: 48rem) {
+  .section {
+    padding: 0 24px 56px;
+  }
+
+  .stages {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .stage {
+    min-height: auto;
+  }
+
+  .stage:not(:last-child)::after {
+    top: auto;
+    right: auto;
+    bottom: -23px;
+    left: 50%;
+    transform: translateX(-50%);
+    content: '↓';
+  }
 }

@@ -1,5 +1,5 @@
 .section {
-  padding: 0 130px 96px;
+  padding: 0 var(--page-gutter) 96px;
 }
 
 .heading {
@@ -71,10 +71,14 @@
 
 @media (max-width: 75rem) {
   .section { padding-inline: 48px; }
+  .grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 48rem) {
   .section { padding: 0 24px 56px; }
+  .heading { font-size: 1.5rem; }
   .grid { grid-template-columns: 1fr; }
   .content { padding: 56px 32px; }
+  .title { font-size: 1.5rem; }
+  .description { font-size: 0.875rem; }
 }

@@ -1,0 +1,79 @@
+.header {
+  padding-inline: var(--page-gutter);
+}
+
+.tabletHeader {
+  display: none;
+}
+
+.drawer {
+  color: #fff;
+  background: var(--color-brand-gray);
+}
+
+.drawerHeader {
+  color: #fff;
+  background: var(--color-brand-gray);
+}
+
+.drawerTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.drawerClose {
+  color: #fff;
+}
+
+.drawerBody {
+  background: var(--color-brand-gray);
+}
+
+.mobileNavLink,
+.contactLink {
+  color: #fff;
+  text-decoration: none;
+}
+
+.mobileNavLink {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.contactLink {
+  font-size: 1rem;
+}
+
+.contacts {
+  padding-top: 24px;
+  border-top: 1px solid rgb(255 255 255 / 20%);
+}
+
+.contactsLabel {
+  margin-bottom: 12px;
+  color: var(--color-brand-orange);
+  font-size: 0.8125rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 75rem) {
+  .header {
+    height: 72px !important;
+    padding-inline: 24px;
+  }
+
+  .desktopHeader {
+    display: none;
+  }
+
+  .tabletHeader {
+    display: flex;
+  }
+
+  .mobileLogo {
+    width: auto;
+    height: 48px;
+  }
+}

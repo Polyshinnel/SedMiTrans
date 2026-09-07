@@ -1,9 +1,9 @@
-.intro { margin-inline: 130px; padding-top: 36px; padding-bottom: 48px; }
+.intro { margin-inline: var(--page-gutter); padding-top: 36px; padding-bottom: 48px; }
 .breadcrumbs { margin-bottom: 20px; color: var(--color-brand-gray); font-size: .9375rem; }
 .breadcrumbs a { color: var(--color-brand-orange); }
 .title { max-width: 980px; color: var(--color-brand-gray); font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.08; }
 .date { margin-top: 22px; color: var(--color-brand-orange); font-size: 1rem; font-weight: 700; }
-.body { margin: 0 130px 96px; }
+.body { margin: 0 var(--page-gutter) 96px; }
 .copy { max-width: 820px; margin-bottom: 72px; color: #6f6861; font-size: 1.125rem; line-height: 1.75; }
 .copy p + p { margin-top: 20px; }
 .galleryTitle { margin-bottom: 28px; color: var(--color-brand-gray); font-size: clamp(2rem, 3vw, 3rem); }

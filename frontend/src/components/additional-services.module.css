@@ -1,5 +1,5 @@
 .section {
-  padding: 0 130px 96px;
+  padding: 0 var(--page-gutter) 96px;
 }
 
 .heading {
@@ -56,6 +56,11 @@
 .more:focus-visible {
   color: var(--mantine-color-brandOrange-7);
   font-weight: 800;
+}
+
+@media (max-width: 99.9375rem) {
+  .title { font-size: 1rem; }
+  .description { font-size: 0.8125rem; }
 }
 
 @media (max-width: 75rem) {

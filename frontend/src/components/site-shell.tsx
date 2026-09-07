@@ -2,6 +2,7 @@ import { Anchor, Box } from '@mantine/core';
 import type { ReactNode } from 'react';
 import { Footer } from '@/components/footer';
 import { Header } from '@/components/header';
+import { ScrollToTop } from '@/components/scroll-to-top';
 
 export function SiteShell({ children }: { children: ReactNode }) {
   return (
@@ -12,6 +13,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
         <Box component="main" id="main-content" tabIndex={-1} style={{ flex: 1 }}>{children}</Box>
         <Footer />
       </Box>
+      <ScrollToTop />
     </>
   );
 }

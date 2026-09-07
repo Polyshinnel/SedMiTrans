@@ -1,5 +1,5 @@
 .section {
-  padding: 96px 130px;
+  padding: 96px var(--page-gutter);
 }
 
 .pageSection {
@@ -113,5 +113,6 @@
 @media (max-width: 48rem) {
   .section { padding: 56px 24px; }
   .pageSection { padding-top: 28px; }
+  .heading { font-size: 1.5rem; }
   .grid { grid-template-columns: 1fr; }
 }

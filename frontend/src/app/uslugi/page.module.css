@@ -1,5 +1,5 @@
 .intro {
-  margin-inline: 130px;
+  margin-inline: var(--page-gutter);
   padding-top: 36px;
   padding-bottom: 8px;
 }

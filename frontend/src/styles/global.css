@@ -3,7 +3,10 @@
   --color-brand-orange: #ff7c1f;
   --color-brand-gray: #4f4943;
   --color-page: #f8f8f7;
+  --page-gutter: 130px;
 }
+@media (max-width: 99.9375rem) { :root { --page-gutter: 80px; } }
+@media (max-width: 85.3125rem) { :root { --page-gutter: 48px; } }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body { margin: 0; background: var(--color-page); color: var(--color-brand-gray); }
