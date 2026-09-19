@@ -15,18 +15,20 @@ final class QueueLeadSubmittedNotification
      */
     public function handle(LeadSubmitted $event): void
     {
-        $delivery = NotificationDeliveryRecord::query()->firstOrCreate(
-            ['delivery_key' => 'lead-submitted:'.$event->leadId.':email'],
-            [
-                'id' => (string) Str::ulid(),
-                'lead_id' => $event->leadId,
-                'channel' => 'email',
-                'status' => 'pending',
-            ],
-        );
+        foreach (['email', 'telegram'] as $channel) {
+            $delivery = NotificationDeliveryRecord::query()->firstOrCreate(
+                ['delivery_key' => 'lead-submitted:'.$event->leadId.':'.$channel],
+                [
+                    'id' => (string) Str::ulid(),
+                    'lead_id' => $event->leadId,
+                    'channel' => $channel,
+                    'status' => 'pending',
+                ],
+            );
 
-        if ($delivery->wasRecentlyCreated) {
-            SendLeadSubmittedNotification::dispatch($delivery->id, $event->requestId)->onQueue('notifications');
+            if ($delivery->wasRecentlyCreated) {
+                SendLeadSubmittedNotification::dispatch($delivery->id, $event->requestId)->onQueue('notifications');
+            }
         }
     }
 }

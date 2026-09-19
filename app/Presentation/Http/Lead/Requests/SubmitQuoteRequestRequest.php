@@ -23,7 +23,9 @@ final class SubmitQuoteRequestRequest extends FormRequest
             'name' => ['required', 'string', 'max:120'],
             'phone' => ['required', 'string', 'max:32', 'regex:/^\\+?[0-9()\\s-]{7,32}$/'],
             'email' => ['nullable', 'email', 'max:255'],
-            'message' => ['nullable', 'string', 'max:5000'],
+            'cargo' => ['nullable', 'string', 'max:5000'],
+            'route' => ['nullable', 'string', 'max:5000'],
+            'cargo_parameters' => ['nullable', 'string', 'max:5000'],
         ];
     }
 }

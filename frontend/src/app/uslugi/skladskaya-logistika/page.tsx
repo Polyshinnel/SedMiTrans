@@ -1,4 +1,3 @@
-import type { Metadata } from 'next';
 import { Anchor, Box, Text, Title } from '@mantine/core';
 import {
   IconBarcode,
@@ -13,11 +12,11 @@ import {
 import Image from 'next/image';
 import { CalculationRequestModal } from '@/components/calculation-request-modal';
 import styles from '../avtoperevozki/page.module.css';
+import { getSeoPage } from '@/lib/api/server';
+import { buildSeoMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Складская логистика | Седьмой Транс',
-  description: 'Приёмка, хранение, консолидация и комплектация грузов на складах в России и за рубежом.',
-};
+export const dynamic = 'force-dynamic';
+export async function generateMetadata() { return buildSeoMetadata(await getSeoPage('warehouse-logistics')); }
 
 const operations = [
   { icon: IconContainer, title: 'Приёмка и размещение', text: 'Принимаем груз по количеству и состоянию, сверяем документы и размещаем на подходящей зоне хранения.' },
@@ -42,7 +41,7 @@ const steps = [
 export default function WarehouseLogisticsPage() {
   return (
     <>
-      <section className={styles.hero} style={{ backgroundImage: "url('/images/warehouse-logistics-hero.png')" }} aria-labelledby="warehouse-hero-title">
+      <section className={styles.hero} style={{ backgroundImage: "url('/images/warehouse-logistics-hero.webp')" }} aria-labelledby="warehouse-hero-title">
         <div className={styles.heroOverlay} />
         <div className={styles.heroContent}>
           <Box className={styles.heroBreadcrumbs}>
@@ -67,7 +66,7 @@ export default function WarehouseLogisticsPage() {
       </section>
 
       <section className={styles.terminalSection} aria-labelledby="fulfillment-title">
-        <div className={styles.terminalImageWrap}><Image src="/images/warehouse-fulfillment.png" alt="Проверка и упаковка груза на складе" fill sizes="(max-width: 900px) 100vw, 50vw" className={styles.terminalImage} /><div className={styles.fact}><strong>Готово к отправке</strong><span>Проверяем состав заказа перед передачей перевозчику</span></div></div>
+        <div className={styles.terminalImageWrap}><Image src="/images/warehouse-fulfillment.webp" alt="Проверка и упаковка груза на складе" fill sizes="(max-width: 900px) 100vw, 50vw" className={styles.terminalImage} /><div className={styles.fact}><strong>Готово к отправке</strong><span>Проверяем состав заказа перед передачей перевозчику</span></div></div>
         <div className={styles.terminalContent}><Text className={styles.eyebrow}>Точная комплектация</Text><Title id="fulfillment-title" order={2} className={styles.sectionTitle}>Каждая партия собрана по вашему заданию</Title><Text>Проверяем количество мест, состояние упаковки и соответствие отгрузочным документам. При необходимости переупаковываем, маркируем, фотографируем и готовим груз к погрузке.</Text><CalculationRequestModal label="Обсудить хранение" /></div>
       </section>
 

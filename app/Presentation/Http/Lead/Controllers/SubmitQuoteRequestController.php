@@ -13,7 +13,7 @@ final class SubmitQuoteRequestController
     public function __invoke(SubmitQuoteRequestRequest $request, SubmitQuoteRequestHandler $handler): JsonResponse|LeadResource
     {
         $data = $request->validated();
-        $lead = $handler->handle(new SubmitQuoteRequest($data['idempotency_key'], $data['name'], $data['phone'], $data['email'] ?? null, $data['message'] ?? null, $request->attributes->getString('request_id')));
+        $lead = $handler->handle(new SubmitQuoteRequest($data['idempotency_key'], $data['name'], $data['phone'], $data['email'] ?? null, null, $data['cargo'] ?? null, $data['route'] ?? null, $data['cargo_parameters'] ?? null, $request->attributes->getString('request_id')));
 
         return (new LeadResource($lead))->response()->setStatusCode(201);
     }

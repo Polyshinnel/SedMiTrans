@@ -1,10 +1,16 @@
 <?php
 
+use App\Presentation\Http\Cases\Controllers\ListCasesController;
+use App\Presentation\Http\Cases\Controllers\ShowCaseController;
+use App\Presentation\Http\Contact\Controllers\GetContactSettingsController;
+use App\Presentation\Http\Lead\Controllers\SubmitFeedbackRequestController;
 use App\Presentation\Http\Lead\Controllers\SubmitQuoteRequestController;
+use App\Presentation\Http\Seo\Controllers\GetSeoPageController;
+use Carbon\CarbonImmutable;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Cache;
 use Laravel\Horizon\Contracts\SupervisorRepository;
 use Laravel\Horizon\Contracts\WorkloadRepository;
 
@@ -12,6 +18,15 @@ Route::prefix('v1')->group(function (): void {
     Route::post('/leads/quote-requests', SubmitQuoteRequestController::class)
         ->middleware('throttle:quote-requests')
         ->name('api.v1.leads.quote-requests.store');
+    Route::post('/leads/feedback', SubmitFeedbackRequestController::class)
+        ->middleware('throttle:quote-requests')
+        ->name('api.v1.leads.feedback.store');
+    Route::get('/contacts', GetContactSettingsController::class)
+        ->name('api.v1.contacts.show');
+    Route::get('/seo/{key}', GetSeoPageController::class)
+        ->name('api.v1.seo.show');
+    Route::get('/cases', ListCasesController::class)->name('api.v1.cases.index');
+    Route::get('/cases/{slug}', ShowCaseController::class)->name('api.v1.cases.show');
 
     Route::get('/health', function () {
         DB::select('select 1');
@@ -22,7 +37,7 @@ Route::prefix('v1')->group(function (): void {
 
     Route::get('/health/queues', function (SupervisorRepository $supervisors, WorkloadRepository $workloads) {
         $schedulerHeartbeat = Cache::get('health:scheduler:last_heartbeat_at');
-        $schedulerAge = $schedulerHeartbeat === null ? null : now()->diffInSeconds(\Carbon\CarbonImmutable::parse($schedulerHeartbeat));
+        $schedulerAge = $schedulerHeartbeat === null ? null : now()->diffInSeconds(CarbonImmutable::parse($schedulerHeartbeat));
 
         return response()->json([
             // Horizon removes a supervisor from this repository after 29 seconds,

@@ -22,8 +22,6 @@ type YandexMapsApi = {
 };
 
 const apiKey = 'ddda0c18-95d3-493d-820b-a7304bc04e5c';
-const coordinates: [number, number] = [32.0162, 54.77908];
-
 async function loadMap(): Promise<MapComponents> {
   if (!document.querySelector('script[data-yandex-maps]')) {
     await new Promise<void>((resolve, reject) => {
@@ -45,7 +43,8 @@ async function loadMap(): Promise<MapComponents> {
   return { reactify, ...reactify.module(ymaps3) };
 }
 
-export function YandexMap() {
+export function YandexMap({ latitude, longitude, fallbackUrl }: { latitude: string; longitude: string; fallbackUrl: string }) {
+  const coordinates: [number, number] = [Number(longitude), Number(latitude)];
   const [components, setComponents] = React.useState<MapComponents | null>(null);
   const [failed, setFailed] = React.useState(false);
 
@@ -54,7 +53,7 @@ export function YandexMap() {
   }, []);
 
   if (failed) {
-    return <a className="mapFallback" href="https://yandex.ru/maps/?pt=32.0162,54.77908&z=16&l=map" target="_blank" rel="noreferrer">Открыть карту в Яндексе</a>;
+    return <a className="mapFallback" href={fallbackUrl} target="_blank" rel="noreferrer">Открыть карту в Яндексе</a>;
   }
   if (!components) return <div className="mapLoading">Загружаем карту…</div>;
 

@@ -1,9 +1,14 @@
+import type { Metadata } from 'next';
 import { Container, Stack, Text, Title } from '@mantine/core';
 import { QuoteRequestForm } from '@/components/quote-request-form';
 
 // Content is code-owned until a public Content API and its cache policy exist.
 export const dynamic = 'force-dynamic';
-export const metadata = { title: 'Рассчитать перевозку' };
+export const metadata: Metadata = {
+  title: { absolute: 'Рассчитать стоимость перевозки — SedMiTrans' },
+  description: 'Оставьте параметры груза и маршрута — специалисты SedMiTrans подготовят расчёт стоимости перевозки.',
+  robots: { index: false, follow: true },
+};
 
 export default function QuotePage() {
   return (

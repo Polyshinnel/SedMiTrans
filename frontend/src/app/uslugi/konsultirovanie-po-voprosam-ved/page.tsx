@@ -1,4 +1,3 @@
-import type { Metadata } from 'next';
 import { Anchor, Box, Text, Title } from '@mantine/core';
 import {
   IconBuildingBank,
@@ -13,11 +12,11 @@ import {
 import Image from 'next/image';
 import { CalculationRequestModal } from '@/components/calculation-request-modal';
 import styles from '../avtoperevozki/page.module.css';
+import { getSeoPage } from '@/lib/api/server';
+import { buildSeoMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Консультирование по вопросам ВЭД',
-  description: 'Практические консультации по ВЭД: внешнеторговые контракты, платежи, валютный контроль и документы для импорта и экспорта.',
-};
+export const dynamic = 'force-dynamic';
+export async function generateMetadata() { return buildSeoMetadata(await getSeoPage('ved-consulting')); }
 
 const services = [
   { icon: IconFileDescription, title: 'Документы и контракты', text: 'Проверяем внешнеторговые договоры, инвойсы и условия поставки. Подсказываем, какие сведения важно зафиксировать заранее.' },
@@ -42,7 +41,7 @@ const steps = [
 export default function VedConsultingPage() {
   return (
     <>
-      <section className={styles.hero} style={{ backgroundImage: "url('/images/ved-consulting-hero.png')" }} aria-labelledby="ved-hero-title">
+      <section className={styles.hero} style={{ backgroundImage: "url('/images/ved-consulting-hero.webp')" }} aria-labelledby="ved-hero-title">
         <div className={styles.heroOverlay} />
         <div className={styles.heroContent}>
           <Box className={styles.heroBreadcrumbs}>
@@ -67,7 +66,7 @@ export default function VedConsultingPage() {
       </section>
 
       <section className={styles.terminalSection} aria-labelledby="ved-documents-title">
-        <div className={styles.terminalImageWrap}><Image src="/images/ved-consulting-documents.png" alt="Рабочая консультация по документам внешнеторговой сделки" fill sizes="(max-width: 900px) 100vw, 50vw" className={styles.terminalImage} /><div className={styles.fact}><strong>Разбираем по существу</strong><span>Фиксируем риски, документы и действия, которые нужны именно для вашей поставки</span></div></div>
+        <div className={styles.terminalImageWrap}><Image src="/images/ved-consulting-documents.webp" alt="Рабочая консультация по документам внешнеторговой сделки" fill sizes="(max-width: 900px) 100vw, 50vw" className={styles.terminalImage} /><div className={styles.fact}><strong>Разбираем по существу</strong><span>Фиксируем риски, документы и действия, которые нужны именно для вашей поставки</span></div></div>
         <div className={styles.terminalContent}><Text className={styles.eyebrow}>Разбор конкретной сделки</Text><Title id="ved-documents-title" order={2} className={styles.sectionTitle}>Консультация, после которой можно действовать</Title><Text>Расскажите, что планируете ввозить или вывозить, откуда и куда пойдёт груз. Мы зададим правильные вопросы, проверим логику сделки и подскажем, как подготовиться к общению с перевозчиком, таможенным представителем и банком.</Text><CalculationRequestModal label="Разобрать сделку" /></div>
       </section>
 

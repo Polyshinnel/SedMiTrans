@@ -2,19 +2,28 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Anchor, Breadcrumbs, Text, Title } from '@mantine/core';
 import { CaseGallery } from '@/components/case-gallery';
-import { cases, getCase } from '@/components/cases-data';
+import { getCase } from '@/lib/api/server';
+import type { CaseStudy } from '@/lib/api/types';
 import styles from './page.module.css';
 
-export function generateStaticParams() { return cases.map(({ slug }) => ({ slug })); }
-
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-  const item = getCase((await params).slug);
-  return { title: item?.title ?? 'Кейс', description: item?.excerpt };
+  try {
+    const item = await getCase((await params).slug);
+    return {
+      title: { absolute: item.seo.title },
+      description: item.seo.description,
+      alternates: { canonical: `/kejsy/${item.slug}` },
+      openGraph: { type: 'article', locale: 'ru_RU', siteName: 'SedMiTrans', title: item.seo.title, description: item.seo.description, url: `/kejsy/${item.slug}`, images: item.image ? [item.image] : undefined },
+      twitter: { card: 'summary_large_image', title: item.seo.title, description: item.seo.description, images: item.image ? [item.image] : undefined },
+    };
+  } catch {
+    return { title: 'Кейс' };
+  }
 }
 
 export default async function CasePage({ params }: { params: Promise<{ slug: string }> }) {
-  const item = getCase((await params).slug);
-  if (!item) notFound();
+  let item: CaseStudy;
+  try { item = await getCase((await params).slug); } catch { notFound(); }
 
   return (
     <article>
@@ -29,7 +38,7 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
       </section>
       <section className={styles.body}>
         <div className={styles.copy}>
-          {item.text.map((paragraph) => <Text key={paragraph}>{paragraph}</Text>)}
+          <div dangerouslySetInnerHTML={{ __html: item.body }} />
         </div>
         <div className={styles.gallerySection}>
           <Title order={2} className={styles.galleryTitle}>Галерея проекта</Title>

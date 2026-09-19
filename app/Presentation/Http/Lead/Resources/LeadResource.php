@@ -11,6 +11,6 @@ final class LeadResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
-        return ['id' => $this->resource->id, 'status' => $this->resource->status];
+        return ['id' => $this->resource->id, 'status' => $this->resource->status === 'read' ? 'read' : 'new'];
     }
 }

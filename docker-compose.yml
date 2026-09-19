@@ -22,8 +22,13 @@ services:
         LOCAL_UID: ${LOCAL_UID:-1000}
         LOCAL_GID: ${LOCAL_GID:-1000}
     working_dir: /var/www/html
+    # The source tree is bind-mounted in development. Run PHP as the host
+    # project owner so Laravel can write storage/framework and bootstrap/cache.
+    user: "${LOCAL_UID:-1000}:${LOCAL_GID:-1000}"
     command: php-fpm -F
     env_file: .env
+    environment:
+      XDG_CONFIG_HOME: /tmp/.config
     volumes:
       - .:/var/www/html
       - backend_vendor:/var/www/html/vendor
@@ -43,6 +48,7 @@ services:
         LOCAL_UID: ${LOCAL_UID:-1000}
         LOCAL_GID: ${LOCAL_GID:-1000}
     working_dir: /var/www/html
+    user: "${LOCAL_UID:-1000}:${LOCAL_GID:-1000}"
     command: php artisan horizon
     restart: unless-stopped
     env_file: .env
@@ -65,6 +71,7 @@ services:
         LOCAL_UID: ${LOCAL_UID:-1000}
         LOCAL_GID: ${LOCAL_GID:-1000}
     working_dir: /var/www/html
+    user: "${LOCAL_UID:-1000}:${LOCAL_GID:-1000}"
     command: php artisan schedule:work
     restart: unless-stopped
     env_file: .env

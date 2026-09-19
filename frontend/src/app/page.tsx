@@ -8,10 +8,14 @@ import { SpecialTransport } from '@/components/special-transport';
 import { StatsSection } from '@/components/stats-section';
 import { TransportDirections } from '@/components/transport-directions';
 import { WorkflowSection } from '@/components/workflow-section';
+import { getSeoPage } from '@/lib/api/server';
+import { buildSeoMetadata } from '@/lib/seo';
 
-// The public landing page is intentionally request-time SSR; future CMS content
-// can be added with an explicit revalidate policy instead of changing this implicitly.
 export const dynamic = 'force-dynamic';
+
+export async function generateMetadata() {
+  return buildSeoMetadata(await getSeoPage('home'));
+}
 
 export default function HomePage() {
   return (

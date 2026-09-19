@@ -4,6 +4,8 @@ import { Anchor, Box, Burger, Drawer, Group, Stack, Text } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import Image from 'next/image';
 import { CalculationRequestModal } from '@/components/calculation-request-modal';
+import { SocialLinks } from '@/components/social-links';
+import type { ContactSettings } from '@/lib/api/types';
 import styles from './header.module.css';
 
 const navigation = [
@@ -14,8 +16,9 @@ const navigation = [
   { label: 'Контакты', href: '/contacts' },
 ];
 
-export function Header() {
+export function Header({ contacts }: { contacts: ContactSettings }) {
   const [opened, { close, toggle }] = useDisclosure(false);
+  const phoneHref = `tel:${contacts.phone.replace(/[^+\d]/g, '')}`;
 
   return (
     <Box
@@ -39,10 +42,10 @@ export function Header() {
 
         <Group gap="md" wrap="nowrap">
           <Stack gap={2}>
-            <Anchor href="tel:+74951234567" c="white" underline="never" fw={600}>+7 (495) 123-45-67</Anchor>
-            <Anchor href="mailto:info@sedmitrans.ru" size="sm" c="white" underline="never">info@sedmitrans.ru</Anchor>
+            <Anchor href={phoneHref} c="white" underline="never" fw={600}>{contacts.phone}</Anchor>
+            <Anchor href={`mailto:${contacts.email}`} size="sm" c="white" underline="never">{contacts.email}</Anchor>
           </Stack>
-          <CalculationRequestModal />
+          <SocialLinks telegramUrl={contacts.telegram_url} whatsappUrl={contacts.whatsapp_url} maxUrl={contacts.max_url} />
         </Group>
       </Group>
 
@@ -75,8 +78,8 @@ export function Header() {
           <Box className={styles.contacts}>
             <Text className={styles.contactsLabel}>Контакты</Text>
             <Stack gap={6}>
-              <Anchor href="tel:+74951234567" className={styles.contactLink}>+7 (495) 123-45-67</Anchor>
-              <Anchor href="mailto:info@sedmitrans.ru" className={styles.contactLink}>info@sedmitrans.ru</Anchor>
+              <Anchor href={phoneHref} className={styles.contactLink}>{contacts.phone}</Anchor>
+              <Anchor href={`mailto:${contacts.email}`} className={styles.contactLink}>{contacts.email}</Anchor>
             </Stack>
           </Box>
 

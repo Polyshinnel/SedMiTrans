@@ -1,4 +1,3 @@
-import type { Metadata } from 'next';
 import { Anchor, Box, Button, Text, Title } from '@mantine/core';
 import {
   IconCalendarCheck,
@@ -14,11 +13,11 @@ import {
 import Image from 'next/image';
 import { CalculationRequestModal } from '@/components/calculation-request-modal';
 import styles from '../avtoperevozki/page.module.css';
+import { getSeoPage } from '@/lib/api/server';
+import { buildSeoMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Мультимодальные перевозки | Седьмой Транс',
-  description: 'Мультимодальная доставка грузов морским, железнодорожным и автомобильным транспортом.',
-};
+export const dynamic = 'force-dynamic';
+export async function generateMetadata() { return buildSeoMetadata(await getSeoPage('multimodal-transportation')); }
 
 const transportTypes = [
   { icon: IconShip, title: 'Море + железная дорога', text: 'Экономичная схема для доставки контейнеров из портов Азии и других направлений.' },
@@ -95,7 +94,7 @@ export default function MultimodalTransportationPage() {
 
       <section className={styles.terminalSection} aria-labelledby="terminal-title">
         <div className={styles.terminalImageWrap}>
-          <Image src="/images/multimodal-terminal-port-sunset-20260905.png" alt="Контейнеровоз прибывает в порт на закате" fill sizes="(max-width: 900px) 100vw, 50vw" className={styles.terminalImage} />
+          <Image src="/images/multimodal-terminal-port-sunset-20260905.webp" alt="Контейнеровоз прибывает в порт на закате" fill sizes="(max-width: 900px) 100vw, 50vw" className={styles.terminalImage} />
           <div className={styles.fact}><strong>Без разрывов маршрута</strong><span>Координируем переход груза между всеми видами транспорта</span></div>
         </div>
         <div className={styles.terminalContent}>

@@ -8,4 +8,9 @@ use Filament\Resources\Pages\ListRecords;
 final class ListLeads extends ListRecords
 {
     protected static string $resource = LeadResource::class;
+
+    protected function getHeaderWidgets(): array
+    {
+        return [\App\Presentation\Filament\Lead\Widgets\LeadStats::class];
+    }
 }

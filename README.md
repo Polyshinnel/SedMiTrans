@@ -35,6 +35,26 @@ Redis и `NEXT_PUBLIC_SITE_URL`). Production Compose не монтирует р�
 Laravel-контейнеры, поэтому `storage/logs` и `bootstrap/cache` сохраняют владельца
 `www-data` из образа.
 
+### Администратор Filament
+
+Создание администратора выполняется специальной командой проекта: она создаёт
+активного пользователя и назначает роль `super-admin`.
+
+Локально:
+
+```bash
+docker compose exec app php artisan identity:create-admin
+```
+
+В production:
+
+```bash
+docker compose -f docker-compose.prod.yml run --rm app php artisan identity:create-admin
+```
+
+Команда запросит имя, e-mail и пароль. `make:filament-user` для этого проекта не
+используйте: он создаёт пользователя без необходимого разрешения `admin.access`.
+
 ## Команды Make
 
 `make init` создаёт `.env`, но не собирает образы. Все команды принимают дополнительные

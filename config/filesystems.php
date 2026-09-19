@@ -41,7 +41,9 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage',
+            // Keep public media same-origin. This also works when local access
+            // alternates between localhost and 127.0.0.1.
+            'url' => '/storage',
             'visibility' => 'public',
             'throw' => true,
             'report' => false,

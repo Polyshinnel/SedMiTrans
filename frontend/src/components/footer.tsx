@@ -1,15 +1,18 @@
-import { ActionIcon, Anchor, Box, Button, Divider, Group, SimpleGrid, Stack, Text } from '@mantine/core';
-import { IconBrandTelegram, IconBrandWhatsapp, IconMail, IconMapPin, IconMessageCircle, IconPhone } from '@tabler/icons-react';
+import { Anchor, Box, Divider, Group, SimpleGrid, Stack, Text } from '@mantine/core';
+import { IconMail, IconMapPin, IconPhone } from '@tabler/icons-react';
 import Image from 'next/image';
+import { CallbackRequestModal } from './callback-request-modal';
 import styles from './footer.module.css';
+import { SocialLinks } from './social-links';
+import type { ContactSettings } from '@/lib/api/types';
 
 const serviceLinks = [
   { label: 'Автоперевозки', href: '/uslugi/avtoperevozki' },
   { label: 'Железнодорожные перевозки', href: '/uslugi/zheleznodorozhnye-perevozki' },
   { label: 'Авиаперевозки', href: '/uslugi/aviaperevozki' },
   { label: 'Мультимодальные перевозки', href: '/uslugi/multimodalnye-perevozki' },
-  'Сборные грузы',
-  'Проектные грузы',
+  { label: 'Негабаритные грузы', href: '/uslugi/negabaritnie-gruzy' },
+  { label: 'Опасные грузы', href: '/uslugi/opasniye-gruzy' },
 ];
 
 const additionalServiceLinks = [
@@ -39,7 +42,9 @@ function FooterLinks({ title, links }: { title: string; links: (string | { label
   );
 }
 
-export function Footer() {
+export function Footer({ contacts }: { contacts: ContactSettings }) {
+  const phoneHref = `tel:${contacts.phone.replace(/[^+\d]/g, '')}`;
+
   return (
     <Box component="footer" id="contacts" bg="brandGray.6" className={styles.footer} style={{ padding: '40px var(--page-gutter)' }}>
       <Stack gap="xl">
@@ -49,17 +54,7 @@ export function Footer() {
               <Image className={styles.logo} src="/images/logo.svg" alt="SedMiTrans" width={142} height={76} />
             </Anchor>
             <Text className={styles.description} size="sm" c="white" maw={220}>Международные грузоперевозки по всему миру</Text>
-            <Group gap="sm">
-              <ActionIcon component="a" href="#" aria-label="Telegram" variant="filled" color="white" c="brandGray.6" radius="xl" size="lg">
-                <IconBrandTelegram size={19} stroke={1.8} />
-              </ActionIcon>
-              <ActionIcon component="a" href="#" aria-label="WhatsApp" variant="filled" color="white" c="brandGray.6" radius="xl" size="lg">
-                <IconBrandWhatsapp size={19} stroke={1.8} />
-              </ActionIcon>
-              <ActionIcon component="a" href="#" aria-label="MAX" variant="filled" color="white" c="brandGray.6" radius="xl" size="lg">
-                <IconMessageCircle size={19} stroke={1.8} />
-              </ActionIcon>
-            </Group>
+            <SocialLinks telegramUrl={contacts.telegram_url} whatsappUrl={contacts.whatsapp_url} maxUrl={contacts.max_url} />
           </Stack>
 
           <FooterLinks title="Услуги" links={serviceLinks} />
@@ -70,19 +65,17 @@ export function Footer() {
             <Text className={styles.columnTitle} fw={600} fz="lg" c="white">Контакты</Text>
             <Group gap="sm" align="flex-start" wrap="nowrap">
               <IconPhone size={20} color="var(--color-brand-orange)" />
-              <Anchor className={styles.footerLink} href="tel:+74951233456" size="sm" c="white" underline="never">+7(495)-123-34-56</Anchor>
+              <Anchor className={styles.footerLink} href={phoneHref} size="sm" c="white" underline="never">{contacts.phone}</Anchor>
             </Group>
             <Group gap="sm" align="flex-start" wrap="nowrap">
               <IconMail size={20} color="var(--color-brand-orange)" />
-              <Anchor className={styles.footerLink} href="mailto:info@sedmitrans.ru" size="sm" c="brandOrange.6" underline="never">info@sedmitrans.ru</Anchor>
+              <Anchor className={styles.footerLink} href={`mailto:${contacts.email}`} size="sm" c="brandOrange.6" underline="never">{contacts.email}</Anchor>
             </Group>
             <Group gap="sm" align="flex-start" wrap="nowrap">
               <IconMapPin size={20} color="var(--color-brand-orange)" />
-              <Text className={styles.description} size="sm" c="white">г. Смоленск, ул. Нормандия-Неман д.35</Text>
+              <Text className={styles.description} size="sm" c="white">{contacts.address}</Text>
             </Group>
-            <Button component="a" href="/quote" variant="transparent" color="brandOrange" p={0} w="fit-content" fw={700}>
-              Перезвоните мне
-            </Button>
+            <CallbackRequestModal />
           </Stack>
         </SimpleGrid>
 

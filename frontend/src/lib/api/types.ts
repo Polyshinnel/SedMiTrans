@@ -21,6 +21,42 @@ export class ApiError extends Error {
 
 export type Decoder<T> = (value: unknown) => T;
 
+export interface ContactSettings {
+  phone: string;
+  email: string;
+  address: string;
+  telegram_url: string;
+  whatsapp_url: string;
+  max_url: string;
+  working_hours: string;
+  latitude: string;
+  longitude: string;
+}
+
+export interface SeoPage {
+  key: string;
+  name: string;
+  path: string;
+  title: string;
+  description: string;
+}
+
+export interface CaseStudy {
+  slug: string;
+  seo: { title: string; description: string };
+  title: string;
+  excerpt: string;
+  date: string;
+  body: string;
+  image: string | null;
+  gallery: string[];
+}
+
+export interface PaginatedCases {
+  data: CaseStudy[];
+  meta: { current_page: number; last_page: number; per_page: number; total: number };
+}
+
 export async function decodeJson<T>(response: Response, decoder?: Decoder<T>): Promise<T> {
   const payload: unknown = await response.json();
   return decoder ? decoder(payload) : payload as T;

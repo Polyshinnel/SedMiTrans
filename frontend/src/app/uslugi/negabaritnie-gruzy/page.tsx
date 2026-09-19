@@ -1,0 +1,38 @@
+import { Anchor, Box, Text, Title } from '@mantine/core';
+import { IconBox, IconClipboardCheck, IconMap2, IconRoute, IconShieldCheck, IconTruck } from '@tabler/icons-react';
+import { CalculationRequestModal } from '@/components/calculation-request-modal';
+import styles from '../avtoperevozki/page.module.css';
+import { getSeoPage } from '@/lib/api/server';
+import { buildSeoMetadata } from '@/lib/seo';
+
+export const dynamic = 'force-dynamic';
+export async function generateMetadata() { return buildSeoMetadata(await getSeoPage('oversized-cargo')); }
+
+const options = [
+  { icon: IconMap2, title: 'Проработка маршрута', text: 'Проверяем габариты проездов, мосты, ограничения и условия на площадках.' },
+  { icon: IconTruck, title: 'Специальный транспорт', text: 'Подбираем тралы, низкорамные платформы и дополнительное сопровождение.' },
+  { icon: IconBox, title: 'Надёжное крепление', text: 'Определяем схему размещения и фиксации техники, конструкций и оборудования.' },
+  { icon: IconClipboardCheck, title: 'Разрешения и документы', text: 'Готовим транспортные документы и координируем необходимые согласования.' },
+];
+const advantages = [
+  { icon: IconRoute, title: 'Маршрут под габариты', text: 'Учитываем каждый критичный участок до того, как груз выйдет на дорогу.' },
+  { icon: IconShieldCheck, title: 'Контроль безопасности', text: 'Следим за погрузкой, креплением, сопровождением и соблюдением графика.' },
+  { icon: IconClipboardCheck, title: 'Один координатор', text: 'Синхронизируем перевозчика, площадки, технику и вашу команду.' },
+];
+const steps = [
+  { icon: IconClipboardCheck, text: 'Получаем параметры груза и точки маршрута' },
+  { icon: IconMap2, text: 'Проверяем проезд и подбираем транспорт' },
+  { icon: IconRoute, text: 'Согласовываем график, крепление и документы' },
+  { icon: IconTruck, text: 'Организуем перевозку и сдачу груза на площадке' },
+];
+
+export default function OversizedCargoPage() {
+  return <>
+    <section className={styles.hero} style={{ backgroundImage: "url('/images/oversized-cargo-hero-v2.webp')" }} aria-labelledby="oversized-hero-title"><div className={styles.heroOverlay} /><div className={styles.heroContent}><Box className={styles.heroBreadcrumbs}><Anchor href="/" underline="never">Главная</Anchor><span aria-hidden="true">/</span><Anchor href="/uslugi" underline="never">Услуги</Anchor><span aria-hidden="true">/</span><Text component="span">Негабаритные грузы</Text></Box><Title id="oversized-hero-title" order={1} className={styles.heroTitle}>Негабаритные грузы <span>без лишних рисков</span></Title><Text className={styles.heroDescription}>Перевозим промышленное оборудование, строительную технику, крупные конструкции и другие нестандартные грузы. Берём на себя маршрут, технику, крепление и сопровождение.</Text><div className={styles.heroActions}><CalculationRequestModal label="Рассчитать перевозку" size="lg" /></div></div></section>
+    <section className={styles.intro} aria-labelledby="intro-title"><div><Text className={styles.eyebrow}>Нестандартная логистика</Text><Title id="intro-title" order={2} className={styles.sectionTitle}>Когда груз не помещается в стандартные рамки</Title></div><div className={styles.introCopy}><Text>Негабаритная перевозка требует точной подготовки: от оценки размеров и массы до проверки маршрута и возможностей погрузочной площадки.</Text><Text>Мы объединяем инженерную проработку и управление перевозкой, чтобы техника или конструкция прибыли на объект безопасно и в согласованный срок.</Text></div></section>
+    <section className={styles.transportSection} aria-labelledby="options-title"><div className={styles.sectionHeading}><Text className={styles.eyebrow}>Подготовка к рейсу</Text><Title id="options-title" order={2} className={styles.sectionTitle}>Ведём перевозку от расчёта до выгрузки</Title></div><div className={styles.transportGrid}>{options.map(({ icon: Icon, title, text }) => <article className={styles.transportCard} key={title}><Icon size={38} stroke={1.55} /><Title order={3}>{title}</Title><Text>{text}</Text></article>)}</div></section>
+    <section className={styles.advantages} aria-labelledby="advantages-title"><Text className={styles.eyebrow}>Управляемый процесс</Text><Title id="advantages-title" order={2} className={styles.sectionTitle}>Сложный груз — понятный план действий</Title><div className={styles.advantageGrid}>{advantages.map(({ icon: Icon, title, text }) => <article key={title} className={styles.advantageCard}><Icon size={42} stroke={1.5} /><Title order={3}>{title}</Title><Text>{text}</Text></article>)}</div></section>
+    <section id="how-we-work" className={styles.workflow} aria-labelledby="workflow-title"><div className={styles.sectionHeading}><Text className={styles.eyebrow}>Пошаговая работа</Text><Title id="workflow-title" order={2} className={styles.sectionTitle}>Как мы организуем перевозку негабарита</Title></div><ol className={styles.steps}>{steps.map(({ icon: Icon, text }, index) => <li key={text}><Icon className={styles.stepIcon} size={28} stroke={1.6} aria-hidden="true" /><span>0{index + 1}</span><Text>{text}</Text></li>)}</ol></section>
+    <section className={styles.cta} aria-labelledby="cta-title"><div><Text className={styles.ctaLabel}>Начните с консультации</Text><Title id="cta-title" order={2}>Пришлите параметры груза — подготовим схему доставки</Title><Text>Укажите габариты, массу, точки отправления и назначения. Мы предложим транспорт и реалистичный маршрут.</Text></div><CalculationRequestModal label="Обсудить перевозку" size="lg" /></section>
+  </>;
+}

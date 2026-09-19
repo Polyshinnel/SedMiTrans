@@ -7,6 +7,12 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [{ source: '/storage/:path*', destination: `${media}/storage/:path*` }];
   },
+  async redirects() {
+    return [
+      { source: '/uslugi/sbornye-gruzy', destination: '/uslugi/negabaritnie-gruzy', permanent: true },
+      { source: '/uslugi/proektnye-gruzy', destination: '/uslugi/opasniye-gruzy', permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;

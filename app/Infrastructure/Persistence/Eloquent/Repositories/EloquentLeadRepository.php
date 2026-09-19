@@ -15,11 +15,16 @@ final class EloquentLeadRepository implements LeadRepository, LeadFinder
         $record->id = $lead->id;
         $record->forceFill([
             'idempotency_key' => $lead->idempotencyKey,
+            'type' => $lead->type,
             'name' => $lead->name->value,
             'phone' => $lead->phone->value,
             'email' => $lead->email?->value,
             'message' => $lead->message?->value,
-            'status' => $lead->status,
+            'cargo' => $lead->cargo,
+            'route' => $lead->route,
+            'cargo_parameters' => $lead->cargoParameters,
+            'status' => $lead->status === 'submitted' ? 'new' : $lead->status,
+            'read_at' => $lead->readAt,
             'submitted_at' => $lead->submittedAt,
         ]);
         $record->save();
@@ -41,6 +46,6 @@ final class EloquentLeadRepository implements LeadRepository, LeadFinder
 
     private function map(LeadRecord $record): Lead
     {
-        return Lead::reconstitute($record->id, $record->idempotency_key, $record->name, $record->phone, $record->email, $record->message, $record->status, \DateTimeImmutable::createFromInterface($record->submitted_at));
+        return Lead::reconstitute($record->id, $record->idempotency_key, $record->type ?? 'quote', $record->name, $record->phone, $record->email, $record->message, $record->cargo, $record->route, $record->cargo_parameters, $record->status, \DateTimeImmutable::createFromInterface($record->submitted_at), $record->read_at ? \DateTimeImmutable::createFromInterface($record->read_at) : null);
     }
 }

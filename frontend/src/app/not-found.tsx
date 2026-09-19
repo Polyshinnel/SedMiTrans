@@ -2,7 +2,11 @@ import { Button, Group, Stack, Text, Title } from '@mantine/core';
 import type { Metadata } from 'next';
 import styles from './not-found.module.css';
 
-export const metadata: Metadata = { title: 'Страница не найдена', robots: { index: false, follow: false } };
+export const metadata: Metadata = {
+  title: { absolute: 'Страница не найдена — SedMiTrans' },
+  description: 'Запрашиваемая страница не найдена. Перейдите на главную или выберите подходящую услугу SedMiTrans.',
+  robots: { index: false, follow: false },
+};
 
 export default function NotFound() {
   return (

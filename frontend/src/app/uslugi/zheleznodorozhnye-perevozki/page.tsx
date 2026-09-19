@@ -1,4 +1,3 @@
-import type { Metadata } from 'next';
 import { Anchor, Box, Button, Text, Title } from '@mantine/core';
 import {
   IconBox,
@@ -14,11 +13,11 @@ import {
 import Image from 'next/image';
 import { CalculationRequestModal } from '@/components/calculation-request-modal';
 import styles from '../avtoperevozki/page.module.css';
+import { getSeoPage } from '@/lib/api/server';
+import { buildSeoMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Железнодорожные перевозки | Седьмой Транс',
-  description: 'Контейнерные и железнодорожные перевозки грузов из Китая, стран ЕАЭС и по России.',
-};
+export const dynamic = 'force-dynamic';
+export async function generateMetadata() { return buildSeoMetadata(await getSeoPage('rail-transportation')); }
 
 const transportTypes = [
   { icon: IconContainer, title: 'Контейнерные поезда', text: 'Регулярные отправки в 20- и 40-футовых контейнерах для стабильных поставок.' },

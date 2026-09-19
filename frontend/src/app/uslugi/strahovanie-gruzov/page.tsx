@@ -1,4 +1,3 @@
-import type { Metadata } from 'next';
 import { Anchor, Box, Text, Title } from '@mantine/core';
 import {
   IconBox,
@@ -13,11 +12,11 @@ import {
 import Image from 'next/image';
 import { CalculationRequestModal } from '@/components/calculation-request-modal';
 import styles from '../avtoperevozki/page.module.css';
+import { getSeoPage } from '@/lib/api/server';
+import { buildSeoMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Страхование грузов',
-  description: 'Страхование грузов при перевозке: подбор покрытия, оформление полиса и сопровождение при страховом случае.',
-};
+export const dynamic = 'force-dynamic';
+export async function generateMetadata() { return buildSeoMetadata(await getSeoPage('cargo-insurance')); }
 
 const services = [
   { icon: IconShieldCheck, title: 'Подбор покрытия', text: 'Определяем подходящий вариант страхования с учётом маршрута, вида транспорта и особенностей груза.' },
@@ -42,7 +41,7 @@ const steps = [
 export default function CargoInsurancePage() {
   return (
     <>
-      <section className={styles.hero} style={{ backgroundImage: "url('/images/cargo-insurance-hero.png')" }} aria-labelledby="insurance-hero-title">
+      <section className={styles.hero} style={{ backgroundImage: "url('/images/cargo-insurance-hero.webp')" }} aria-labelledby="insurance-hero-title">
         <div className={styles.heroOverlay} />
         <div className={styles.heroContent}>
           <Box className={styles.heroBreadcrumbs}>
@@ -67,7 +66,7 @@ export default function CargoInsurancePage() {
       </section>
 
       <section className={styles.terminalSection} aria-labelledby="insurance-protection-title">
-        <div className={styles.terminalImageWrap}><Image src="/images/cargo-insurance-protection.png" alt="Защищённый и закреплённый груз на паллете" fill sizes="(max-width: 900px) 100vw, 50vw" className={styles.terminalImage} /><div className={styles.fact}><strong>Груз подготовлен к пути</strong><span>Учитываем упаковку, крепление и точки обработки при оценке рисков</span></div></div>
+        <div className={styles.terminalImageWrap}><Image src="/images/cargo-insurance-protection.webp" alt="Защищённый и закреплённый груз на паллете" fill sizes="(max-width: 900px) 100vw, 50vw" className={styles.terminalImage} /><div className={styles.fact}><strong>Груз подготовлен к пути</strong><span>Учитываем упаковку, крепление и точки обработки при оценке рисков</span></div></div>
         <div className={styles.terminalContent}><Text className={styles.eyebrow}>Оценка рисков</Text><Title id="insurance-protection-title" order={2} className={styles.sectionTitle}>Защита должна соответствовать реальной перевозке</Title><Text>Смотрим не только на стоимость товара, но и на маршрут, тип упаковки, сезонность, перегрузки и особенности транспорта. Так условия страхования остаются практичными, а не формальными.</Text><CalculationRequestModal label="Подобрать покрытие" /></div>
       </section>
 

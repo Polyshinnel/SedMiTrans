@@ -2,8 +2,9 @@
 
 return [
 
-    'lead_notifications' => [
-        'to' => env('LEAD_NOTIFICATION_TO', env('MAIL_FROM_ADDRESS')),
+    'lead_notifications' => [],
+    'telegram' => [
+        'bot_token' => env('TELEGRAM_BOT_TOKEN'),
     ],
 
     /*

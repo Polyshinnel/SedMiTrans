@@ -1,4 +1,3 @@
-import type { Metadata } from 'next';
 import { Anchor, Box, Button, Text, Title } from '@mantine/core';
 import {
   IconBox,
@@ -14,11 +13,11 @@ import {
 import Image from 'next/image';
 import { CalculationRequestModal } from '@/components/calculation-request-modal';
 import styles from '../avtoperevozki/page.module.css';
+import { getSeoPage } from '@/lib/api/server';
+import { buildSeoMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Авиаперевозки | Седьмой Транс',
-  description: 'Срочная международная доставка грузов воздушным транспортом из любой точки мира.',
-};
+export const dynamic = 'force-dynamic';
+export async function generateMetadata() { return buildSeoMetadata(await getSeoPage('air-transportation')); }
 
 const transportTypes = [
   { icon: IconPlane, title: 'Регулярные рейсы', text: 'Оптимальный вариант для плановых отправок с понятным расписанием и стоимостью.' },

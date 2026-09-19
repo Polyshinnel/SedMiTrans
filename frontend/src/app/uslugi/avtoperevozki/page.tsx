@@ -1,4 +1,3 @@
-import type { Metadata } from 'next';
 import { Anchor, Box, Button, Text, Title } from '@mantine/core';
 import {
   IconBox,
@@ -12,11 +11,11 @@ import {
 import Image from 'next/image';
 import { CalculationRequestModal } from '@/components/calculation-request-modal';
 import styles from './page.module.css';
+import { getSeoPage } from '@/lib/api/server';
+import { buildSeoMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Автоперевозки | Седьмой Транс',
-  description: 'Международные автомобильные перевозки грузов из Европы, Азии и стран ЕАЭС.',
-};
+export const dynamic = 'force-dynamic';
+export async function generateMetadata() { return buildSeoMetadata(await getSeoPage('auto-transportation')); }
 
 const transportTypes = [
   { icon: IconTruck, title: 'Тентованные полуприцепы', text: 'Универсальное решение для палетированных, коробочных и негабаритных по объёму грузов.' },

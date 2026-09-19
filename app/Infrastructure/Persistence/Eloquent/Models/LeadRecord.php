@@ -12,10 +12,10 @@ final class LeadRecord extends Model
 
     protected $keyType = 'string';
 
-    protected $fillable = ['idempotency_key', 'name', 'phone', 'email', 'message', 'submitted_at'];
+    protected $fillable = ['idempotency_key', 'type', 'name', 'phone', 'email', 'message', 'cargo', 'route', 'cargo_parameters', 'status', 'read_at', 'submitted_at'];
 
     protected function casts(): array
     {
-        return ['submitted_at' => 'immutable_datetime'];
+        return ['submitted_at' => 'immutable_datetime', 'read_at' => 'immutable_datetime'];
     }
 }

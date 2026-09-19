@@ -2,5 +2,8 @@
 .breadcrumbs { margin-bottom: 20px; color: var(--color-brand-gray); font-size: .9375rem; }
 .breadcrumbs a { color: var(--color-brand-orange); }
 .title { color: var(--color-brand-gray); font-size: clamp(2.5rem, 4vw, 4rem); line-height: 1.1; }
+.emptyState { margin: 56px var(--page-gutter) 96px; display: flex; flex-direction: column; align-items: flex-start; gap: 28px; }
+.emptyText { max-width: 620px; color: var(--color-brand-gray); font-size: clamp(1rem, 1.5vw, 1.35rem); line-height: 1.45; }
 @media (max-width: 75rem) { .intro { margin-inline: 48px; } }
-@media (max-width: 48rem) { .intro { margin-inline: 24px; padding-top: 24px; } .breadcrumbs { margin-bottom: 30px; } }
+@media (max-width: 75rem) { .emptyState { margin-inline: 48px; } }
+@media (max-width: 48rem) { .intro { margin-inline: 24px; padding-top: 24px; } .emptyState { margin: 40px 24px 64px; } .breadcrumbs { margin-bottom: 30px; } }

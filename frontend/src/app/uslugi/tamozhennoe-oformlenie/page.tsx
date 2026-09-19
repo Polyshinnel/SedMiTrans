@@ -1,4 +1,3 @@
-import type { Metadata } from 'next';
 import { Anchor, Box, Text, Title } from '@mantine/core';
 import {
   IconBox,
@@ -13,11 +12,11 @@ import {
 import Image from 'next/image';
 import { CalculationRequestModal } from '@/components/calculation-request-modal';
 import styles from '../avtoperevozki/page.module.css';
+import { getSeoPage } from '@/lib/api/server';
+import { buildSeoMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Таможенное оформление',
-  description: 'Таможенное оформление грузов при импорте и экспорте: документы, расчёт платежей и сопровождение до выпуска.',
-};
+export const dynamic = 'force-dynamic';
+export async function generateMetadata() { return buildSeoMetadata(await getSeoPage('customs-clearance')); }
 
 const services = [
   { icon: IconFileDescription, title: 'Подготовка документов', text: 'Проверяем инвойсы, упаковочные листы, контракты и сведения о товаре до подачи декларации.' },
@@ -42,7 +41,7 @@ const steps = [
 export default function CustomsClearancePage() {
   return (
     <>
-      <section className={styles.hero} style={{ backgroundImage: "url('/images/customs-clearance-hero.png')" }} aria-labelledby="customs-hero-title">
+      <section className={styles.hero} style={{ backgroundImage: "url('/images/customs-clearance-hero.webp')" }} aria-labelledby="customs-hero-title">
         <div className={styles.heroOverlay} />
         <div className={styles.heroContent}>
           <Box className={styles.heroBreadcrumbs}>
@@ -67,7 +66,7 @@ export default function CustomsClearancePage() {
       </section>
 
       <section className={styles.terminalSection} aria-labelledby="customs-documents-title">
-        <div className={styles.terminalImageWrap}><Image src="/images/customs-clearance-documents.png" alt="Подготовка документов для таможенного оформления" fill sizes="(max-width: 900px) 100vw, 50vw" className={styles.terminalImage} /><div className={styles.fact}><strong>Документы под контролем</strong><span>Проверяем комплект до подачи декларации и выпуска груза</span></div></div>
+        <div className={styles.terminalImageWrap}><Image src="/images/customs-clearance-documents.webp" alt="Подготовка документов для таможенного оформления" fill sizes="(max-width: 900px) 100vw, 50vw" className={styles.terminalImage} /><div className={styles.fact}><strong>Документы под контролем</strong><span>Проверяем комплект до подачи декларации и выпуска груза</span></div></div>
         <div className={styles.terminalContent}><Text className={styles.eyebrow}>Предварительная проверка</Text><Title id="customs-documents-title" order={2} className={styles.sectionTitle}>Находим неточности до того, как они станут задержкой</Title><Text>Сверяем коммерческие документы, описание и характеристики товара. Если нужны дополнительные сведения или разрешения, сообщаем об этом заранее и предлагаем понятный план действий.</Text><CalculationRequestModal label="Проверить поставку" /></div>
       </section>
 

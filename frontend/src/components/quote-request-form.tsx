@@ -1,6 +1,6 @@
 'use client';
 
-import { Alert, Anchor, Button, Paper, Stack, Text, TextInput, Textarea, Title } from '@mantine/core';
+import { Alert, Anchor, Button, Paper, SimpleGrid, Stack, Text, TextInput, Textarea, Title } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useRef, useState } from 'react';
 import { browserApi } from '@/lib/api/browser';
@@ -25,7 +25,7 @@ function errorText(error: ApiError): string {
   return 'Не удалось отправить заявку. Попробуйте ещё раз или сообщите номер обращения поддержке.';
 }
 
-export function QuoteRequestForm({ dark = false, calculationFields = false, heading }: { dark?: boolean; calculationFields?: boolean; heading?: string }) {
+export function QuoteRequestForm({ dark = false, calculationFields = false, feedbackFields = false, heading, subtitle, submitLabel, calculationGrid = false, onSuccess }: { dark?: boolean; calculationFields?: boolean; feedbackFields?: boolean; heading?: string; subtitle?: string; submitLabel?: string; calculationGrid?: boolean; onSuccess?: () => void }) {
   const form = useForm<QuoteValues>({
     initialValues,
     validate: {
@@ -49,11 +49,13 @@ export function QuoteRequestForm({ dark = false, calculationFields = false, head
         ? {
             name: values.name,
             phone: values.phone,
-            message: `Что перевозим: ${values.cargo}\nМаршрут: ${values.route}\nПараметры груза: ${values.parameters}`,
+            cargo: values.cargo,
+            route: values.route,
+            cargo_parameters: values.parameters,
           }
         : { name: values.name, phone: values.phone, email: values.email, message: values.message };
 
-      await browserApi<QuoteResponse>('/leads/quote-requests', {
+      await browserApi<QuoteResponse>(calculationFields ? '/leads/quote-requests' : '/leads/feedback', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Idempotency-Key': idempotencyKey.current },
         body: JSON.stringify(payload),
@@ -61,11 +63,12 @@ export function QuoteRequestForm({ dark = false, calculationFields = false, head
       form.reset();
       idempotencyKey.current = null;
       setSuccess(true);
+      onSuccess?.();
     } catch (caught) {
       const apiError = caught instanceof ApiError ? caught : new ApiError('network', 0);
       if (apiError.kind === 'validation') {
         const fields = apiError.errors ?? {};
-        const knownFields = new Set<keyof QuoteValues>(['name', 'phone', 'email', 'message']);
+      const knownFields = new Set<keyof QuoteValues>(['name', 'phone', 'email', 'message', 'cargo', 'route', 'parameters']);
         const unknown = Object.keys(fields).some((field) => !knownFields.has(field as keyof QuoteValues));
         form.setErrors(Object.fromEntries(Object.entries(fields).filter(([field]) => knownFields.has(field as keyof QuoteValues)).map(([field, messages]) => [field, messages[0] ?? 'Некорректное значение'])));
         if (!unknown) return;
@@ -84,13 +87,24 @@ export function QuoteRequestForm({ dark = false, calculationFields = false, head
     <Paper component="form" className={dark ? styles.dark : undefined} withBorder={!dark} p={dark ? 0 : 'lg'} radius="md" onSubmit={form.onSubmit(submit)}>
       <Stack>
         {heading && <Title order={2} className={styles.formHeading}>{heading}</Title>}
+        {subtitle && <Text className={styles.formSubtitle}>{subtitle}</Text>}
         {calculationFields ? (
-          <>
+          <SimpleGrid cols={calculationGrid ? 3 : 1} spacing="md">
             <TextInput label="ФИО" placeholder="Иванов Иван Иванович" required autoComplete="name" {...form.getInputProps('name')} />
             <TextInput label="Телефон" placeholder="+7(999)999-99-99" required autoComplete="tel" inputMode="tel" {...form.getInputProps('phone')} />
             <TextInput label="Что перевозим" placeholder="Опишите груз" {...form.getInputProps('cargo')} />
             <TextInput label="Маршрут" placeholder="Страна-город" {...form.getInputProps('route')} />
             <TextInput label="Параметры груза" placeholder="Д х Ш х В, вес брутто" {...form.getInputProps('parameters')} />
+            {calculationGrid && <Button type="submit" loading={form.submitting} disabled={retryAfter !== null} className={styles.calculationSubmit}>
+              {retryAfter === null ? (submitLabel ?? 'Получить расчет') : `Повторите через ${retryAfter} сек.`}
+            </Button>}
+          </SimpleGrid>
+        ) : feedbackFields ? (
+          <>
+            <TextInput label="ФИО" placeholder="Иванов Иван Иванович" required autoComplete="name" {...form.getInputProps('name')} />
+            <TextInput label="Телефон" placeholder="+7 (999) 999-99-99" required autoComplete="tel" inputMode="tel" {...form.getInputProps('phone')} />
+            <TextInput label="Почта" placeholder="name@example.com" type="email" {...form.getInputProps('email')} />
+            <Textarea label="Сообщение" placeholder="Напишите ваш вопрос" minRows={4} {...form.getInputProps('message')} />
           </>
         ) : (
           <>
@@ -101,10 +115,10 @@ export function QuoteRequestForm({ dark = false, calculationFields = false, head
           </>
         )}
         {error && <Alert color="red" title="Заявка не отправлена">{error.text}{error.requestId && <Text size="sm" mt="xs">Номер обращения: {error.requestId}</Text>}</Alert>}
-        {success && <Alert color="green" title="Заявка отправлена">Спасибо! Мы скоро свяжемся с вами.</Alert>}
-        <Button type="submit" loading={form.submitting} disabled={retryAfter !== null}>
-          {retryAfter === null ? 'Отправить заявку' : `Повторите через ${retryAfter} сек.`}
-        </Button>
+        {success && !onSuccess && <Alert color="green" title="Заявка отправлена">Спасибо! Мы скоро свяжемся с Вами!</Alert>}
+        {!calculationGrid && <Button type="submit" loading={form.submitting} disabled={retryAfter !== null}>
+          {retryAfter === null ? (submitLabel ?? 'Отправить заявку') : `Повторите через ${retryAfter} сек.`}
+        </Button>}
         {dark && <Text className={styles.consent}>Отправляя заявку вы соглашаетесь с нашей <Anchor href="/politika-obrabotki-personalnyh-dannyh">политикой обработки персональных данных</Anchor>.</Text>}
       </Stack>
     </Paper>

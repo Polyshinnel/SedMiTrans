@@ -4,11 +4,11 @@ import { CalculationFormSection } from '@/components/calculation-form-section';
 import { SpecialTransport } from '@/components/special-transport';
 import { TransportDirections } from '@/components/transport-directions';
 import styles from './page.module.css';
+import { getSeoPage } from '@/lib/api/server';
+import { buildSeoMetadata } from '@/lib/seo';
 
-export const metadata = {
-  title: 'Услуги',
-  description: 'Основные направления перевозок, специальные и дополнительные услуги SedMiTrans.',
-};
+export const dynamic = 'force-dynamic';
+export async function generateMetadata() { return buildSeoMetadata(await getSeoPage('services')); }
 
 export default function ServicesPage() {
   return (

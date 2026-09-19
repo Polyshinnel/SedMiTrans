@@ -23,6 +23,8 @@ services:
       target: app
     restart: unless-stopped
     env_file: .env
+    environment:
+      XDG_CONFIG_HOME: /tmp/.config
     volumes:
       - storage_public:/var/www/html/storage/app/public
     depends_on:
@@ -39,6 +41,8 @@ services:
     command: ["php", "artisan", "horizon"]
     restart: unless-stopped
     env_file: .env
+    environment:
+      XDG_CONFIG_HOME: /tmp/.config
     volumes:
       - storage_public:/var/www/html/storage/app/public
     depends_on:
@@ -55,6 +59,8 @@ services:
     command: ["php", "artisan", "schedule:work"]
     restart: unless-stopped
     env_file: .env
+    environment:
+      XDG_CONFIG_HOME: /tmp/.config
     volumes:
       - storage_public:/var/www/html/storage/app/public
     depends_on:

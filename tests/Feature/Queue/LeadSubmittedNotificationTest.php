@@ -22,29 +22,36 @@ final class LeadSubmittedNotificationTest extends TestCase
         parent::setUp();
     }
 
-    public function test_a_submitted_lead_enqueues_one_idempotent_notification_delivery(): void
+    public function test_a_submitted_lead_enqueues_email_and_telegram_deliveries_idempotently(): void
     {
         Queue::fake();
 
         $response = $this->postJson('/api/v1/leads/quote-requests', [
             'name' => 'Alice',
             'phone' => '+79991234567',
+            'cargo' => 'Оборудование',
+            'route' => 'Москва — Санкт-Петербург',
         ], ['Idempotency-Key' => 'notification-request-1'])->assertCreated();
 
         $leadId = $response->json('data.id');
 
-        self::assertDatabaseCount('notification_deliveries', 1);
+        self::assertDatabaseCount('notification_deliveries', 2);
         self::assertDatabaseHas('notification_deliveries', [
             'lead_id' => $leadId,
             'delivery_key' => 'lead-submitted:'.$leadId.':email',
+            'status' => 'pending',
+        ]);
+        self::assertDatabaseHas('notification_deliveries', [
+            'lead_id' => $leadId,
+            'delivery_key' => 'lead-submitted:'.$leadId.':telegram',
             'status' => 'pending',
         ]);
         Queue::assertPushedOn('notifications', SendLeadSubmittedNotification::class);
 
         event(new LeadSubmitted($leadId, new \DateTimeImmutable));
 
-        self::assertDatabaseCount('notification_deliveries', 1);
-        self::assertCount(1, Queue::pushed(SendLeadSubmittedNotification::class));
+        self::assertDatabaseCount('notification_deliveries', 2);
+        self::assertCount(2, Queue::pushed(SendLeadSubmittedNotification::class));
     }
 
     public function test_replayed_notification_job_does_not_repeat_the_delivery_side_effect(): void
@@ -56,6 +63,7 @@ final class LeadSubmittedNotificationTest extends TestCase
             'name' => 'Alice',
             'phone' => '+79991234567',
             'status' => 'new',
+            'type' => 'feedback',
             'submitted_at' => now(),
         ]);
         $lead->save();

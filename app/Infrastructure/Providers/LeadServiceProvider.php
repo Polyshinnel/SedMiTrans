@@ -8,6 +8,7 @@ use App\Domain\Lead\Contracts\LeadRepository;
 use App\Infrastructure\Events\LaravelDomainEventPublisher;
 use App\Infrastructure\Persistence\Eloquent\Repositories\EloquentLeadRepository;
 use Illuminate\Support\ServiceProvider;
+use App\Infrastructure\Lead\LeadNotificationSettings;
 
 final class LeadServiceProvider extends ServiceProvider
 {
@@ -16,5 +17,6 @@ final class LeadServiceProvider extends ServiceProvider
         $this->app->bind(LeadRepository::class, EloquentLeadRepository::class);
         $this->app->bind(LeadFinder::class, EloquentLeadRepository::class);
         $this->app->bind(DomainEventPublisher::class, LaravelDomainEventPublisher::class);
+        $this->app->singleton(LeadNotificationSettings::class);
     }
 }

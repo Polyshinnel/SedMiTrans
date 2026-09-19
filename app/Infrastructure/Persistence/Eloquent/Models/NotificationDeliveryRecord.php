@@ -12,7 +12,7 @@ final class NotificationDeliveryRecord extends Model
 
     protected $keyType = 'string';
 
-    protected $fillable = ['id', 'delivery_key', 'lead_id', 'channel', 'status', 'delivered_at', 'failed_at', 'last_error'];
+    protected $fillable = ['id', 'delivery_key', 'lead_id', 'channel', 'status', 'attempts', 'delivered_at', 'failed_at', 'last_error'];
 
     protected function casts(): array
     {

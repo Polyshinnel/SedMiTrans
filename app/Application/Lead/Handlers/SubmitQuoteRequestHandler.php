@@ -20,14 +20,14 @@ final readonly class SubmitQuoteRequestHandler
             $existing = $this->leads->findByIdempotencyKey($command->idempotencyKey);
 
             if ($existing !== null) {
-                if (! $existing->hasSameSubmission($command->name, $command->phone, $command->email, $command->message)) {
+                if (! $existing->hasSameSubmission($command->name, $command->phone, $command->email, $command->message, $command->cargo, $command->route, $command->type, $command->cargoParameters)) {
                     throw new IdempotencyConflict('Idempotency key is already used for another request.');
                 }
 
                 return [$existing, []];
             }
 
-            $lead = Lead::submit((string) Str::ulid(), $command->idempotencyKey, $command->name, $command->phone, $command->email, $command->message, new \DateTimeImmutable, $command->requestId);
+            $lead = Lead::submit((string) Str::ulid(), $command->idempotencyKey, $command->name, $command->phone, $command->email, $command->message, new \DateTimeImmutable, $command->requestId, $command->type, $command->cargo, $command->route, $command->cargoParameters);
             $this->leads->save($lead);
 
             return [$lead, $lead->releaseEvents()];

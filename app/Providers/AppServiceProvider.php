@@ -6,8 +6,8 @@ use App\Domain\Lead\Events\LeadSubmitted;
 use App\Listeners\QueueLeadSubmittedNotification;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -25,6 +25,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        config()->set('livewire.temporary_file_upload.rules', ['required', 'file', 'max:20480']);
+
         Event::listen(LeadSubmitted::class, QueueLeadSubmittedNotification::class);
 
         RateLimiter::for('quote-requests', function (Request $request): Limit {

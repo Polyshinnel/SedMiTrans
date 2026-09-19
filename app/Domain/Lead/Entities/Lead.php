@@ -20,12 +20,17 @@ final class Lead
     private function __construct(
         public readonly string $id,
         public readonly string $idempotencyKey,
+        public readonly string $type,
         public readonly Name $name,
         public readonly Phone $phone,
         public readonly ?Email $email,
         public readonly ?Message $message,
+        public readonly ?string $cargo,
+        public readonly ?string $route,
+        public readonly ?string $cargoParameters,
         public string $status,
         public readonly \DateTimeImmutable $submittedAt,
+        public ?\DateTimeImmutable $readAt,
         ?string $requestId,
         bool $recordEvent,
     ) {
@@ -34,19 +39,23 @@ final class Lead
         }
     }
 
-    public static function submit(string $id, string $idempotencyKey, string $name, string $phone, ?string $email, ?string $message, \DateTimeImmutable $submittedAt, ?string $requestId = null): self
+    public static function submit(string $id, string $idempotencyKey, string $name, string $phone, ?string $email, ?string $message, \DateTimeImmutable $submittedAt, ?string $requestId = null, string $type = 'quote', ?string $cargo = null, ?string $route = null, ?string $cargoParameters = null): self
     {
         $idempotencyKey = trim($idempotencyKey);
         if ($idempotencyKey === '' || mb_strlen($idempotencyKey) > 128) {
             throw new InvalidLeadData('Idempotency key must contain from 1 to 128 characters.');
         }
 
-        return new self($id, $idempotencyKey, Name::fromString($name), Phone::fromString($phone), Email::fromNullable($email), Message::fromNullable($message), self::STATUS_SUBMITTED, $submittedAt, $requestId, true);
+        if (! in_array($type, ['quote', 'feedback'], true)) {
+            throw new InvalidLeadData('Lead type must be quote or feedback.');
+        }
+
+        return new self($id, $idempotencyKey, $type, Name::fromString($name), Phone::fromString($phone), Email::fromNullable($email), Message::fromNullable($message), self::nullableText($cargo), self::nullableText($route), self::nullableText($cargoParameters), self::STATUS_SUBMITTED, $submittedAt, null, $requestId, true);
     }
 
-    public static function reconstitute(string $id, string $idempotencyKey, string $name, string $phone, ?string $email, ?string $message, string $status, \DateTimeImmutable $submittedAt): self
+    public static function reconstitute(string $id, string $idempotencyKey, string $type, string $name, string $phone, ?string $email, ?string $message, ?string $cargo, ?string $route, ?string $cargoParameters, string $status, \DateTimeImmutable $submittedAt, ?\DateTimeImmutable $readAt = null): self
     {
-        return new self($id, $idempotencyKey, Name::fromString($name), Phone::fromString($phone), Email::fromNullable($email), Message::fromNullable($message), $status, $submittedAt, null, false);
+        return new self($id, $idempotencyKey, $type, Name::fromString($name), Phone::fromString($phone), Email::fromNullable($email), Message::fromNullable($message), self::nullableText($cargo), self::nullableText($route), self::nullableText($cargoParameters), $status === 'submitted' ? 'new' : $status, $submittedAt, $readAt, null, false);
     }
 
     /** @return list<DomainEvent> */
@@ -58,17 +67,34 @@ final class Lead
         return $events;
     }
 
-    public function hasSameSubmission(string $name, string $phone, ?string $email, ?string $message): bool
+    public function hasSameSubmission(string $name, string $phone, ?string $email, ?string $message, ?string $cargo = null, ?string $route = null, string $type = 'quote', ?string $cargoParameters = null): bool
     {
-        return $this->name->value === Name::fromString($name)->value
+        return $this->type === $type
+            && $this->name->value === Name::fromString($name)->value
             && $this->phone->value === Phone::fromString($phone)->value
             && $this->email?->value === Email::fromNullable($email)?->value
-            && $this->message?->value === Message::fromNullable($message)?->value;
+            && $this->message?->value === Message::fromNullable($message)?->value
+            && $this->cargo === self::nullableText($cargo)
+            && $this->route === self::nullableText($route)
+            && $this->cargoParameters === self::nullableText($cargoParameters);
+    }
+
+    public function markAsRead(): void
+    {
+        $this->readAt ??= new \DateTimeImmutable;
+        $this->status = 'read';
+    }
+
+    private static function nullableText(?string $value): ?string
+    {
+        $value = trim((string) $value);
+
+        return $value === '' ? null : $value;
     }
 
     public function changeStatus(string $targetStatus): void
     {
-        $transitions = [self::STATUS_SUBMITTED => ['in_progress', 'rejected'], 'in_progress' => ['completed', 'rejected'], 'completed' => [], 'rejected' => []];
+        $transitions = [self::STATUS_SUBMITTED => ['read'], 'new' => ['read'], 'read' => []];
         if (! in_array($targetStatus, $transitions[$this->status] ?? [], true)) {
             throw new InvalidLeadData("Status transition from {$this->status} to {$targetStatus} is not allowed.");
         }

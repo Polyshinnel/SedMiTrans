@@ -2,7 +2,7 @@
   position: relative;
   min-height: 640px;
   overflow: hidden;
-  background: url('/images/404-route-not-found.png') center / cover no-repeat;
+  background: url('/images/404-route-not-found.webp') center / cover no-repeat;
 }
 
 .overlay {

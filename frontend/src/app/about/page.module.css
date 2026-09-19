@@ -1,5 +1,5 @@
 .hero { position: relative; min-height: 540px; overflow: hidden; background: #fff; }
-.heroImage { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(255,255,255,.98) 0%, rgba(255,255,255,.9) 34%, rgba(255,255,255,0) 70%), url('/images/about-company-hero.png') center / cover; }
+.heroImage { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(255,255,255,.98) 0%, rgba(255,255,255,.9) 34%, rgba(255,255,255,0) 70%), url('/images/about-company-hero.webp') center / cover; }
 .heroContainer { position: relative; display: flex; align-items: center; width: 100%; max-width: none; min-height: 540px; padding-inline: var(--page-gutter); }
 .heroCopy { width: min(100%, 500px); padding: 56px 0; }
 .heroBreadcrumbs { display: flex; align-items: center; gap: 10px; margin-bottom: 28px; color: var(--color-brand-gray); font-size: .9375rem; }
@@ -8,21 +8,29 @@
 .story { max-width: none; padding: 96px var(--page-gutter); }
 .eyebrow { color: var(--color-brand-orange); font-size: .8rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
 .story h2, .sectionHeading h2 { color: var(--color-brand-gray); font-size: clamp(1.8rem, 3vw, 2.7rem); line-height: 1.15; }
+.documentsSection { padding: 80px 0 96px; background: #fff; }
+.documentsSection > div { max-width: none; padding-inline: var(--page-gutter); text-align: center; }
+.documentsHeading { align-items: flex-start; text-align: left; }
+.documentsSection h2 { color: var(--color-brand-gray); font-size: clamp(1.8rem, 3vw, 2.7rem); line-height: 1.15; }
+.documentCard { display: flex; min-height: 290px; align-items: center; flex-direction: column; border: 1px solid #e5e0db; background: #fff; box-shadow: 0 10px 24px rgba(79,73,67,.04); text-align: center; }
+.documentIcon { color: var(--color-brand-orange); }
+.documentTitle { color: var(--color-brand-gray); font-size: clamp(1.15rem, 1.8vw, 1.45rem); line-height: 1.35; }
 .principlesSection { padding: 80px 0 96px; background: #efedea; }
 .principlesSection > div { max-width: none; padding-inline: var(--page-gutter); }
 .sectionHeading { align-items: end; }
 .principleCard { min-height: 250px; border: 1px solid #e5e0db; background: #fff; box-shadow: 0 10px 24px rgba(79,73,67,.04); }
 .principleCard h3 { color: var(--color-brand-gray); }
 .statsSpacing { margin-top: 48px; }
-@media (max-width: 75rem) { .heroContainer { padding-inline: 48px; } .story, .principlesSection > div { margin-inline: 0; padding-inline: 48px; } }
+@media (max-width: 75rem) { .heroContainer { padding-inline: 48px; } .story, .documentsSection > div, .principlesSection > div { margin-inline: 0; padding-inline: 48px; } }
 @media (max-width: 48rem) {
   .heroContainer { padding-inline: 24px; }
-  .story, .principlesSection > div { margin-inline: 0; padding-inline: 24px; }
+  .story, .documentsSection > div, .principlesSection > div { margin-inline: 0; padding-inline: 24px; }
   .hero, .heroContainer { height: calc(100dvh - 72px); min-height: calc(100dvh - 72px); }
-  .heroImage { background: linear-gradient(180deg, rgba(255,255,255,.97) 0%, rgba(255,255,255,.9) 45%, rgba(255,255,255,.14) 100%), url('/images/about-company-hero.png') 62% center / cover; }
+  .heroImage { background: linear-gradient(180deg, rgba(255,255,255,.97) 0%, rgba(255,255,255,.9) 45%, rgba(255,255,255,.14) 100%), url('/images/about-company-hero.webp') 62% center / cover; }
   .heroCopy { align-self: flex-start; padding-top: 64px; }
   .story { padding-top: 64px; padding-bottom: 64px; }
   .principlesSection { padding: 64px 0; }
+  .documentsSection { padding: 64px 0; }
   .sectionHeading { align-items: flex-start; }
   .sectionHeading > p { margin-top: 8px; }
   .statsSpacing { margin-top: 32px; }

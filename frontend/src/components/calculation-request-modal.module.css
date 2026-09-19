@@ -25,3 +25,25 @@
 .close:hover {
   background: var(--mantine-color-brandGray-7);
 }
+
+.success {
+  padding: 24px 0 8px;
+  text-align: center;
+}
+
+.successIcon {
+  color: var(--color-brand-orange);
+}
+
+.successTitle,
+.successText {
+  color: #fff;
+}
+
+.successTitle {
+  line-height: 1.15;
+}
+
+.successText {
+  line-height: 1.5;
+}

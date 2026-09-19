@@ -11,6 +11,8 @@ import type { ReactNode } from 'react';
 import { SiteShell } from '@/components/site-shell';
 import { theme } from '@/styles/theme';
 
+export const dynamic = 'force-dynamic';
+
 const manrope = localFont({
   src: '../fonts/manrope/Manrope[wght].ttf',
   variable: '--font-manrope',
@@ -23,7 +25,7 @@ export const metadata: Metadata = {
   description: 'Грузовые перевозки и логистические решения.',
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:28180'),
   icons: { icon: '/images/favicon.svg' },
-  openGraph: { type: 'website', locale: 'ru_RU', siteName: 'Седьмой Транс', title: 'Седьмой Транс', description: 'Грузовые перевозки и логистические решения.', images: ['/og-default.svg'] },
+  openGraph: { type: 'website', locale: 'ru_RU', siteName: 'SedMiTrans', title: 'SedMiTrans', description: 'Грузовые перевозки и логистические решения.', images: [{ url: '/images/og-sedmitrans.jpg', width: 1200, height: 630 }] },
 };
 
 export const viewport: Viewport = { colorScheme: 'light' };

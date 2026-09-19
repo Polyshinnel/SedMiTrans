@@ -10,6 +10,15 @@
   line-height: 1.15;
 }
 
+.formSubtitle {
+  color: #fff;
+  line-height: 1.5;
+}
+
+.calculationSubmit {
+  align-self: end;
+}
+
 .consent {
   color: var(--mantine-color-brandGray-3);
   font-size: .875rem;

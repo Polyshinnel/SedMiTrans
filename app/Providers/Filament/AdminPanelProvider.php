@@ -2,6 +2,11 @@
 
 namespace App\Providers\Filament;
 
+use App\Presentation\Filament\Cases\CasesResource;
+use App\Presentation\Filament\Lead\LeadResource;
+use App\Presentation\Filament\Seo\SeoPageResource;
+use App\Presentation\Filament\Settings\ContactSettingsPage;
+use App\Presentation\Filament\Settings\LeadNotificationSettingsPage;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -10,6 +15,7 @@ use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
+use Filament\Support\Enums\Width;
 use Filament\Widgets\AccountWidget;
 use Filament\Widgets\FilamentInfoWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
@@ -28,14 +34,19 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->maxContentWidth(Width::Full)
             ->colors([
                 'primary' => Color::Amber,
             ])
             ->resources([
-                \App\Presentation\Filament\Lead\LeadResource::class,
+                LeadResource::class,
+                SeoPageResource::class,
+                CasesResource::class,
             ])
             ->pages([
                 Dashboard::class,
+                LeadNotificationSettingsPage::class,
+                ContactSettingsPage::class,
             ])
             ->widgets([
                 AccountWidget::class,
