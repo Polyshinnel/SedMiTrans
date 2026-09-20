@@ -13,6 +13,8 @@ import { theme } from '@/styles/theme';
 
 export const dynamic = 'force-dynamic';
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim() || 'http://localhost:28180';
+
 const manrope = localFont({
   src: '../fonts/manrope/Manrope[wght].ttf',
   variable: '--font-manrope',
@@ -23,7 +25,7 @@ const manrope = localFont({
 export const metadata: Metadata = {
   title: { default: 'SedMiTrans — логистические решения', template: '%s | SedMiTrans' },
   description: 'Грузовые перевозки и логистические решения.',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:28180'),
+  metadataBase: new URL(siteUrl),
   icons: { icon: '/images/favicon.svg' },
   openGraph: { type: 'website', locale: 'ru_RU', siteName: 'SedMiTrans', title: 'SedMiTrans', description: 'Грузовые перевозки и логистические решения.', images: [{ url: '/images/og-sedmitrans.jpg', width: 1200, height: 630 }] },
 };
