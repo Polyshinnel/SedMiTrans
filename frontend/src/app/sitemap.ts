@@ -1,7 +1,11 @@
 import type { MetadataRoute } from 'next';
-import { getCases } from '@/lib/api/server';
+
+// The sitemap depends on the runtime API. It must not be prerendered during
+// the Docker build, when the nginx/API services are not available yet.
+export const dynamic = 'force-dynamic';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const { getCases } = await import('@/lib/api/server');
   const url = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:28180';
   const firstPage = await getCases(1, 100);
   return [
