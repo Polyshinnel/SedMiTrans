@@ -2,8 +2,9 @@
 
 namespace App\Jobs;
 
-use App\Infrastructure\Persistence\Eloquent\Models\NotificationDeliveryRecord;
+use App\Infrastructure\Lead\LeadNotificationSettings;
 use App\Infrastructure\Persistence\Eloquent\Models\LeadRecord;
+use App\Infrastructure\Persistence\Eloquent\Models\NotificationDeliveryRecord;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -11,11 +12,11 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\Middleware\WithoutOverlapping;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Http;
 
-final class SendLeadSubmittedNotification implements ShouldQueue, ShouldBeUnique
+final class SendLeadSubmittedNotification implements ShouldBeUnique, ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -58,7 +59,7 @@ final class SendLeadSubmittedNotification implements ShouldQueue, ShouldBeUnique
         $delivery->increment('attempts');
 
         if ($delivery->channel === 'email') {
-            $recipients = app(\App\Infrastructure\Lead\LeadNotificationSettings::class)->emailRecipients();
+            $recipients = app(LeadNotificationSettings::class)->emailRecipients();
             if ($recipients === []) {
                 throw new \LogicException('At least one lead notification email must be configured.');
             }
@@ -81,17 +82,19 @@ final class SendLeadSubmittedNotification implements ShouldQueue, ShouldBeUnique
                 throw new \LogicException('TELEGRAM_BOT_TOKEN must be configured.');
             }
 
-            $chatIds = app(\App\Infrastructure\Lead\LeadNotificationSettings::class)->telegramChatIds();
+            $chatIds = app(LeadNotificationSettings::class)->telegramChatIds();
             if ($chatIds === []) {
                 throw new \LogicException('At least one Telegram chat_id must be configured.');
             }
 
             foreach ($chatIds as $chatId) {
-                Http::timeout(15)->post("https://api.telegram.org/bot{$token}/sendMessage", [
-                    'chat_id' => $chatId,
-                    'text' => $this->text($lead),
-                    'parse_mode' => 'HTML',
-                ])->throw();
+                Http::timeout(15)
+                    ->withOptions(app(LeadNotificationSettings::class)->telegramProxyOptions())
+                    ->post("https://api.telegram.org/bot{$token}/sendMessage", [
+                        'chat_id' => $chatId,
+                        'text' => $this->text($lead),
+                        'parse_mode' => 'HTML',
+                    ])->throw();
             }
         }
 
