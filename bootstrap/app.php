@@ -16,6 +16,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // TLS terminates at the Dokploy reverse proxy. Trust its forwarded
+        // headers so Laravel generates HTTPS URLs behind the internal Nginx.
+        $middleware->trustProxies(at: '*');
         $middleware->append(\App\Http\Middleware\AssignRequestId::class);
         $middleware->redirectGuestsTo(fn (): string => route('filament.admin.auth.login'));
     })
