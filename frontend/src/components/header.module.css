@@ -1,5 +1,14 @@
 .header {
+  position: fixed;
+  z-index: 100;
+  inset: 0 0 auto;
+  width: 100%;
   padding-inline: var(--page-gutter);
+}
+
+.spacer {
+  flex: 0 0 100px;
+  height: 100px;
 }
 
 .tabletHeader {
@@ -62,6 +71,11 @@
   .header {
     height: 72px !important;
     padding-inline: 24px;
+  }
+
+  .spacer {
+    flex-basis: 72px;
+    height: 72px;
   }
 
   .desktopHeader {

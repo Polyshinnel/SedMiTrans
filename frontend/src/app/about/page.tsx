@@ -19,7 +19,7 @@ const principles = [
 
 const documents = [
   { icon: IconFileTypeDocx, title: 'Карточка контрагента', href: '/docs/contractor-card.docx' },
-  { icon: IconFileTypePdf, title: 'Выписка из реестра о транспортно-экспидиционной деятельности', href: '/docs/transport-forwarding-registry-extract.pdf' },
+  { icon: IconFileTypePdf, title: 'Выписка из реестра о транспортно-экспедиционной деятельности', href: '/docs/transport-forwarding-registry-extract.pdf' },
   { icon: IconFileTypePdf, title: 'Свидетельство о постановке на учет', href: '/docs/tax-registration-certificate.pdf' },
 ];
 

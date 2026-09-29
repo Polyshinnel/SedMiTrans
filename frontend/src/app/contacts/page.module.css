@@ -16,7 +16,7 @@
 .mapSection > div { max-width: none; padding-inline: var(--page-gutter); }
 .mapLayout { overflow: hidden; border-radius: 12px; background: white; box-shadow: 0 12px 40px rgba(49, 43, 37, .09); }
 .mapCopy { padding: clamp(2rem, 5vw, 4.5rem); }
-.map { min-height: 480px; background: #eee8e2; }
+.map { position: relative; z-index: 0; isolation: isolate; min-height: 480px; background: #eee8e2; }
 .map > div { height: 100%; }
 .map :global(.ymaps3x0--map) { width: 100%; height: 100%; }
 .mapLoading, .mapFallback { display: grid; place-items: center; width: 100%; height: 100%; min-height: 480px; color: var(--color-brand-gray); background: linear-gradient(135deg, #eee9e4, #ddd5cb); text-decoration: none; font-weight: 600; }
